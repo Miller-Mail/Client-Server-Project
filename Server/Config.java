@@ -27,7 +27,7 @@ public class Config implements Serializable
     private String emailPassword;
 
     // Database information
-    private String databaseFilePath;
+    private String databaseServerAddress;
     private String databaseUsername;
     private String databasePassword;
 
@@ -76,7 +76,7 @@ public class Config implements Serializable
             System.out.println("emailFromPassword = " + config.emailPassword);
             System.out.println();
             System.out.println("Database Information:");
-            System.out.println("databaseFilePath = " + config.databaseFilePath);
+            System.out.println("databaseFilePath = " + config.databaseServerAddress);
             System.out.println("databaseUsername = " + config.databaseUsername);
             System.out.println("databasePassword = " + config.databasePassword);
             System.out.println();
@@ -113,7 +113,7 @@ public class Config implements Serializable
         config.emailUsername = null;
         config.emailPassword = null;
 
-        config.databaseFilePath = null; // change
+        config.databaseServerAddress = null; // change
         config.databaseUsername = null; // change
         config.databasePassword = null; // change
 
@@ -327,7 +327,7 @@ public class Config implements Serializable
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
-        return config.databaseFilePath;
+        return config.databaseServerAddress;
     }
     public static void setDatabaseFilePath(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
@@ -335,7 +335,7 @@ public class Config implements Serializable
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (filePath == null)
             throw new InvalidAttributeValueException("Database file path cannot be null");
-        config.databaseFilePath = filePath;
+        config.databaseServerAddress = filePath;
     }
 
     public static String getDatabaseUsername() throws ConfigNotInitializedException
