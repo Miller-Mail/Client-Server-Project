@@ -27,9 +27,12 @@ public class Config implements Serializable
     private String emailPassword;
 
     // Database information
-    private String databaseFilePath;
-    private String databaseUsername;
-    private String databasePassword;
+    private String userDatabase;
+    private String userDatabaseUsername;
+    private String userDatabasePassword;
+    private String systemDatabase;
+    private String systemDatabaseUsername;
+    private String systemDatabasePassword;
 
     // Other information
     private int lockoutThreshold;
@@ -76,9 +79,12 @@ public class Config implements Serializable
             System.out.println("emailFromPassword = " + config.emailPassword);
             System.out.println();
             System.out.println("Database Information:");
-            System.out.println("databaseFilePath = " + config.databaseFilePath);
-            System.out.println("databaseUsername = " + config.databaseUsername);
-            System.out.println("databasePassword = " + config.databasePassword);
+            System.out.println("userDatabase = " + config.userDatabase);
+            System.out.println("userDatabaseUsername = " + config.userDatabaseUsername);
+            System.out.println("userDatabasePassword = " + config.userDatabasePassword);
+            System.out.println("systemDatabase = " + config.systemDatabase);
+            System.out.println("systemDatabaseUsername = " + config.systemDatabaseUsername);
+            System.out.println("systemDatabasePassword = " + config.systemDatabasePassword);
             System.out.println();
             System.out.println("Other Information:");
             System.out.println("lockoutThreshold = " + config.lockoutThreshold);
@@ -113,9 +119,9 @@ public class Config implements Serializable
         config.emailUsername = null;
         config.emailPassword = null;
 
-        config.databaseFilePath = null; // change
-        config.databaseUsername = null; // change
-        config.databasePassword = null; // change
+        config.userDatabase = null; // change
+        config.userDatabaseUsername = null; // change
+        config.userDatabasePassword = null; // change
 
         config.lockoutThreshold = 3;
     }
@@ -327,7 +333,7 @@ public class Config implements Serializable
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
-        return config.databaseFilePath;
+        return config.userDatabase;
     }
     public static void setDatabaseFilePath(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
@@ -335,14 +341,14 @@ public class Config implements Serializable
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (filePath == null)
             throw new InvalidAttributeValueException("Database file path cannot be null");
-        config.databaseFilePath = filePath;
+        config.userDatabase = filePath;
     }
 
     public static String getDatabaseUsername() throws ConfigNotInitializedException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
-        return config.databaseUsername;
+        return config.userDatabaseUsername;
     }
     public static void setDatabaseUsername(String username) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
@@ -350,14 +356,14 @@ public class Config implements Serializable
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (username == null)
             throw new InvalidAttributeValueException("The database file path cannot be null");
-        config.databaseUsername = username;
+        config.userDatabaseUsername = username;
     }
 
     public static String getDatabasePassword() throws ConfigNotInitializedException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The database username cannot be null.");
-        return config.databasePassword;
+        return config.userDatabasePassword;
     }
     public static void setDatabasePassword(String password) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
@@ -365,7 +371,7 @@ public class Config implements Serializable
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (password == null)
             throw new InvalidAttributeValueException("The database password cannot be null");
-        config.databasePassword = password;
+        config.userDatabasePassword = password;
     }
 
     public static int getLockoutThreshold() throws ConfigNotInitializedException
