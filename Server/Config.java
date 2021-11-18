@@ -2,6 +2,8 @@ package Server;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Config implements Serializable
 {
@@ -16,7 +18,7 @@ public class Config implements Serializable
     // Password information
     private int minPasswordLength;
     private int maxPasswordLength;
-    private char[] illegalPasswordCharacters;
+    private String illegalPasswordCharacters;
     private boolean[] requiredCharacterSets; // lowercaseLetters, uppercaseLetters, numbers, symbols
     private boolean enforcePasswordHistory;
 
@@ -65,7 +67,7 @@ public class Config implements Serializable
             System.out.println("Password Information:");
             System.out.println("minPasswordLength = " + config.minPasswordLength);
             System.out.println("maxPasswordLength = " + config.maxPasswordLength);
-            System.out.println("illegalPasswordCharacters = " + Arrays.toString(config.illegalPasswordCharacters));
+            System.out.println("illegalPasswordCharacters = " + config.illegalPasswordCharacters);
             System.out.println("requiredCharacterSets = " + Arrays.toString(config.requiredCharacterSets));
             System.out.println("enforcePasswordHistory = " + config.enforcePasswordHistory);
             System.out.println();
@@ -104,18 +106,18 @@ public class Config implements Serializable
 
         config.minPasswordLength = 1;
         config.maxPasswordLength = 64;
-        config.illegalPasswordCharacters = new char[0];
+        config.illegalPasswordCharacters = "";
         config.requiredCharacterSets = new boolean[4];
         config.enforcePasswordHistory = false;
 
-        config.validEmailFormat = ""; // change
+        config.validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         config.emailUsername = null;
         config.emailPassword = null;
 
-        config.databaseServerAddress = null; // change
-        config.databaseUsername = null; // change
-        config.databasePassword = null; // change
+        config.databaseServerAddress = null;
+        config.databaseUsername = null;
+        config.databasePassword = null;
 
         config.lockoutThreshold = 3;
     }
@@ -157,6 +159,8 @@ public class Config implements Serializable
             e.printStackTrace();
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static int getMinUsernameLength() throws ConfigNotInitializedException
     {
@@ -233,18 +237,18 @@ public class Config implements Serializable
         config.maxPasswordLength = length;
     }
 
-    public static char[] getIllegalPasswordCharacters() throws ConfigNotInitializedException
+    public static String getIllegalPasswordCharacters() throws ConfigNotInitializedException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.illegalPasswordCharacters;
     }
-    public static void setIllegalPasswordCharacters(char[] characters) throws ConfigNotInitializedException, InvalidAttributeValueException
+    public static void setIllegalPasswordCharacters(String characters) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (characters == null)
-            throw new InvalidAttributeValueException("Character array cannot be null");
+            throw new InvalidAttributeValueException("Characters cannot be null");
         config.illegalPasswordCharacters = characters;
     }
 
@@ -381,6 +385,38 @@ public class Config implements Serializable
         if (threshold < 1)
             throw new InvalidAttributeValueException("The lockout threshold must be greater than 0.");
         config.lockoutThreshold = threshold;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static boolean isValidPassword(String password)
+    {
+        String passwordregex = "^";
+        if (config.requiredCharacterSets[0])
+            passwordregex += "(?=.*[a-z])";
+        if (config.requiredCharacterSets[1])
+            passwordregex += "(?=.*[A-Z])";
+        if (config.requiredCharacterSets[2])
+            passwordregex += "(?=.*[0-9])";
+        if (config.requiredCharacterSets[3])
+            passwordregex += "(?=.*[@#$%^&+=])";
+        if (config.illegalPasswordCharacters.length() > 0)
+            passwordregex += "(?=^[^" + config.illegalPasswordCharacters + "]+$)";
+        passwordregex += "(?=\\S+$)";
+        passwordregex += ".{" + config.minPasswordLength + "," + config.maxPasswordLength + "}";
+        passwordregex += "$";
+
+        Pattern passwordpattern = Pattern.compile(passwordregex);
+        Matcher matcher = passwordpattern.matcher(password);
+        return matcher.find();
+    }
+
+    public static boolean isValidEmail(String emailAddress)
+    {
+        String emailregex = config.validEmailFormat;
+        Pattern emailpattern = Pattern.compile(emailregex);
+        Matcher matcher = emailpattern.matcher(emailAddress);
+        return matcher.find();
     }
 }
 
