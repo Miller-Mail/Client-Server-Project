@@ -29,7 +29,8 @@ public class Config implements Serializable
     private String emailPassword;
 
     // Database information
-    private String databaseServerAddress;
+    private String userDatabaseServerAddress;
+    private String systemDatabaseServerAddress;
     private String databaseUsername;
     private String databasePassword;
 
@@ -78,7 +79,8 @@ public class Config implements Serializable
             System.out.println("emailFromPassword = " + config.emailPassword);
             System.out.println();
             System.out.println("Database Information:");
-            System.out.println("databaseFilePath = " + config.databaseServerAddress);
+            System.out.println("databaseFilePath = " + config.userDatabaseServerAddress);
+            System.out.println("databaseFilePath = " + config.systemDatabaseServerAddress);
             System.out.println("databaseUsername = " + config.databaseUsername);
             System.out.println("databasePassword = " + config.databasePassword);
             System.out.println();
@@ -115,7 +117,9 @@ public class Config implements Serializable
         config.emailUsername = null;
         config.emailPassword = null;
 
-        config.databaseServerAddress = null;
+        config.userDatabaseServerAddress = null;
+        config.systemDatabaseServerAddress = null;
+
         config.databaseUsername = null;
         config.databasePassword = null;
 
@@ -327,19 +331,34 @@ public class Config implements Serializable
         config.emailPassword = password;
     }
 
-    public static String getDatabaseFilePath() throws ConfigNotInitializedException
+    public static String getUserDatabaseServerAddress() throws ConfigNotInitializedException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
-        return config.databaseServerAddress;
+        return config.userDatabaseServerAddress;
     }
-    public static void setDatabaseFilePath(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
+    public static void setUserDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
     {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (filePath == null)
             throw new InvalidAttributeValueException("Database file path cannot be null");
-        config.databaseServerAddress = filePath;
+        config.userDatabaseServerAddress = filePath;
+    }
+
+    public static String getSystemDatabaseServerAddress() throws ConfigNotInitializedException
+    {
+        if (config == null)
+            throw new ConfigNotInitializedException("The config file has not been initialized.");
+        return config.systemDatabaseServerAddress;
+    }
+    public static void setSystemDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
+    {
+        if (config == null)
+            throw new ConfigNotInitializedException("The config file has not been initialized.");
+        if (filePath == null)
+            throw new InvalidAttributeValueException("Database file path cannot be null");
+        config.systemDatabaseServerAddress = filePath;
     }
 
     public static String getDatabaseUsername() throws ConfigNotInitializedException
