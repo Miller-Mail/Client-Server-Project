@@ -37,7 +37,7 @@ import javax.swing.Timer;
 
 public class Login extends JFrame {
     private final int WIDTH = 470;
-    private final int HEIGHT = 350;
+    private final int HEIGHT = 250;
 
     public Login() {
         setTitle("Login Screen");
@@ -72,8 +72,6 @@ public class Login extends JFrame {
         private JTextField Pass;
 public FieldPanel(){
     setLayout(new FlowLayout(20,20,10));
-
-
 Us = new JLabel("Username");
     User = new JTextField("", 10);
     pas = new JLabel("Password");
@@ -106,7 +104,45 @@ Us = new JLabel("Username");
             this.add(Log);
             this.add(Close);
             this.add(Help);
+
+           PrepareButtons();
+
         }
+
+        public void PrepareButtons(){
+
+            // Close Button Action
+            Close.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                 System.exit(0);
+                }
+            });
+
+            // Forgot Button Action
+            Forgot.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+
+                }
+            });
+
+            // Log Button Action
+            Log.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+
+                }
+            });
+
+            // Help Button Action
+            Help.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+
+                }
+            });
+
+
+        }
+
+
 
     }
 
