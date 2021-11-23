@@ -109,7 +109,7 @@ public class Config implements Serializable
         config.minPasswordLength = 1;
         config.maxPasswordLength = 64;
         config.illegalPasswordCharacters = "";
-        config.requiredCharacterSets = new boolean[4];
+        config.requiredCharacterSets = new boolean[] {true, true, true, false};
         config.enforcePasswordHistory = false;
 
         config.validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
