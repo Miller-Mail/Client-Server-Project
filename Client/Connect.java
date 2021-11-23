@@ -1,40 +1,14 @@
-import java.awt.*;
+package Client;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.Timer;
 
 public class Connect extends JFrame {
 
@@ -42,7 +16,7 @@ public class Connect extends JFrame {
     private final int HEIGHT = 250;
 
     public Connect() {
-        setTitle("Connect");
+        setTitle("Client.Connect");
 
         // -- size of the frame: width, height
         setSize(WIDTH, HEIGHT);
@@ -105,7 +79,7 @@ public class Connect extends JFrame {
         public BottomPanel() {
 
 
-            Connect = new JButton("Connect");
+            Connect = new JButton("Client.Connect");
             Close = new JButton("Close");
 
             this.add(Connect);
