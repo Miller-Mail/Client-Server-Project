@@ -86,7 +86,7 @@ class Database {
     // used for queries like SELECT * FROM users WHERE username = `tim`
     protected ResultSet query(String command, String columns, String table, String condition){
         try {
-           rset = stmt.executeQuery(command + " " + columns + " FROM " + table + " WHERE " + condition + ";");
+            rset = stmt.executeQuery(command + " " + columns + " FROM " + table + " WHERE " + condition + ";");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -149,7 +149,7 @@ class Database {
     }
 
     public static void main(String[] args) throws ConfigNotInitializedException {
-        ConfigPopulator.populate();
+//        ConfigPopulator.populate();
         Database dbase = new Database(Config.getSystemDatabaseServerAddress(),Config.getDatabaseUsername(),Config.getDatabasePassword());
         dbase.printResultSet(dbase.query("select * from data;"));
     }
