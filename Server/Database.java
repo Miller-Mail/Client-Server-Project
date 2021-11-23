@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//A class used to access a mysql database with the provided url, username and password.
 class Database {
     //database login variables
     private String url;
