@@ -95,6 +95,17 @@ public class Config implements Serializable
             config = new Config();
     }
 
+    public static void initializeConfig(String filePath)
+    {
+
+        if (config == null) {
+            config = new Config();
+            setConfigFilePath(filePath);
+            loadConfig();
+        }
+
+    }
+
     public static void setConfigFilePath(String filePath)
     {
         configFilePath = filePath;
@@ -137,6 +148,12 @@ public class Config implements Serializable
             in.close();
             fileIn.close();
         }
+        //I added this catch block so that if there isn't a config file of the name provided
+        // it creates one and gives it the default values - Jessica
+        catch  (FileNotFoundException e){
+            assignDefaultValues();
+            saveConfig();
+        }
         catch (IOException e)
         {
             e.printStackTrace();
@@ -145,6 +162,7 @@ public class Config implements Serializable
         {
             e.printStackTrace();
         }
+
     }
 
     // Write out config file
