@@ -11,7 +11,7 @@ public class ClientHandler extends Thread {
 	/**
 	 * provide access to the GUI for displaying messages
 	 */
-	ServerGUI servergui = null;
+	ServerG servergui = null;
 	
 	/**
 	 * provides a peer-to-peer connection to the client
@@ -46,7 +46,7 @@ public class ClientHandler extends Thread {
 	 * @param socket: the peer-to-peer socket for connection to the client
 	 * @param server: reference to the server that "has" this ClientHandler
 	 */
-	public ClientHandler (int id, Socket socket, Server server, ServerGUI gui) 
+	public ClientHandler (int id, Socket socket, Server server, ServerG gui)
 	{
 		this.server = server;
 		this.servergui = gui;
@@ -114,7 +114,7 @@ public class ClientHandler extends Thread {
 				//         server parses it to "LOGIN", "<username>", "<password>" and performs login function
 				//         server responds with "SUCCESS\n"
 				//    this is where all the server side Use Cases will be handled
-				this.servergui.addToTextArea(cmd);
+			//	this.servergui.addToTextArea(cmd);
 				CommandProtocol.processCommand(cmd, networkaccess, this);
 			} 
 			catch (IOException e) {
