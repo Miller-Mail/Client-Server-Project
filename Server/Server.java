@@ -32,7 +32,7 @@ public class Server extends Thread {
 	/**
 	 * provide access to the GUI
 	 */
-	ServerGUI servergui = null;
+	ServerG servergui = null;
 	
 	/**
 	 * the port number used for client communication
@@ -69,9 +69,10 @@ public class Server extends Thread {
 	 * constructor creates the list of clients and
 	 * starts the server listening on the port
 	 */
-	public Server (ServerGUI gui)
+	public Server (ServerG gui)
 	{
 		this.servergui = gui;
+		//System.out.println("yay");
 		
 		// -- construct the list of active client threads
 		clientconnections = new Vector<ClientHandler>();

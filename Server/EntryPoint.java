@@ -8,7 +8,7 @@ public class EntryPoint {
 	//    JavaFX main method that we want
 	//    https://github.com/javafxports/openjdk-jfx/issues/236#issuecomment-426583174
 	public static void main(String[] args) {
-		new ServerGUI().launchApp(args);
+		new ServerG();
 	}
 
 }
