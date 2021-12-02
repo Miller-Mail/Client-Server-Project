@@ -12,21 +12,26 @@ public class User implements Serializable {
     private String email;
     private int lockCount;
     private int loggedIn;
+
     //Default constructor
-    public User(){}
+    public User() {
+    }
+
     //Overloaded constructors
-    public User(String username, String password, String email, int lockCount, int loggedIn){
+    public User(String username, String password, String email, int lockCount, int loggedIn) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.lockCount = lockCount;
         this.loggedIn = loggedIn;
     }
-    public User(String username, String password, String email){
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
+
     //getters and setters
     public String getUsername() {
         return username;

@@ -52,23 +52,22 @@ public class CreateAccountGUI extends JFrame {
         private final JTextField email;
         private final JLabel repas;
         private final JTextField rePass;
-        public FieldPanel(){
-            setLayout(new FlowLayout(20,20,10));
+
+        public FieldPanel() {
+            setLayout(new FlowLayout(20, 20, 10));
 
 
             Us = new JLabel("Username");
             User = new JTextField("", 10);
 
-            em = new JLabel ("Email");
-            email = new JTextField("",10);
+            em = new JLabel("Email");
+            email = new JTextField("", 10);
 
 
             pas = new JLabel("Password");
             Pass = new JTextField("", 10);
             repas = new JLabel("Re-enter Password");
             rePass = new JTextField("", 10);
-
-
 
 
             this.add(Us);
@@ -123,9 +122,9 @@ public class CreateAccountGUI extends JFrame {
         }
     }
 
-        public static void main(String[] args) {
-            new CreateAccountGUI();
-        }
+    public static void main(String[] args) {
+        new CreateAccountGUI();
     }
+}
 
 

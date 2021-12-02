@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-
 public class ConnectGUI extends JFrame {
 
     private final int WIDTH = 740;
@@ -83,13 +82,11 @@ public class ConnectGUI extends JFrame {
         private LoginGUI Log;
 
 
-
         public BottomPanel() {
 
 
             Connect = new JButton("Client.Connect");
             Close = new JButton("Close");
-
 
 
             this.add(Connect);
@@ -106,16 +103,16 @@ public class ConnectGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (client == null) {
                         try {
-                            String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
-                            int port = 8000;
-//                            String host = Data.IP.getText();
-//                            int port = Integer.parseInt(Data.portnum.getText());
+//                            String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
+//                            int port = 8000;
+                            String host = Data.IP.getText();
+                            int port = Integer.parseInt(Data.portnum.getText());
                             System.out.println(host);
                             System.out.println(port);
                             client = new Client(host, port);
                             Log = new LoginGUI();
 
-                        } catch(Exception m) {
+                        } catch (Exception m) {
 
                         }
                     }
@@ -128,9 +125,9 @@ public class ConnectGUI extends JFrame {
     }
 
 
-        public static void main(String[] args) {
-            new ConnectGUI();
-        }
+    public static void main(String[] args) {
+        new ConnectGUI();
     }
+}
 
 

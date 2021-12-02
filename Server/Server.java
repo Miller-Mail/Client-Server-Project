@@ -103,7 +103,7 @@ public class Server extends Thread {
 					
 					// -- connection accepted, create a peer-to-peer socket
 					//    between the server (thread) and client (route the call to the requested extension)
-					peerconnection(socket);										
+				peerconnection(socket);
 			}
 		}
 		catch (IOException e) {

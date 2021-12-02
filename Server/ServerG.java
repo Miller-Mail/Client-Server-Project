@@ -40,44 +40,44 @@ public class ServerG extends JFrame {
         // -- set the layout manager and add items
         // 5, 5 is the border around the edges of the areas
         setLayout(new BorderLayout(15, 5));
-         con = new FieldPanel();
+        con = new FieldPanel();
         this.add(con, BorderLayout.CENTER);
 
 
-         low = new BottomPanel();
+        low = new BottomPanel();
         this.add(low, BorderLayout.SOUTH);
 
         // MENU Settings
         JMenuBar MenBar = new JMenuBar();
         JButton Act = new JButton("Activate Surver");
-      //  JButton DeAct = new JButton("Deactivate Server");
+        //  JButton DeAct = new JButton("Deactivate Server");
         JButton Conf = new JButton("Edit Config");
         JButton AConnect = new JButton("Number of Active Connections");
 
 
-       // MenBar.add(Menu1);
+        // MenBar.add(Menu1);
         MenBar.add(Act);
-       // MenBar.add(DeAct);
+        // MenBar.add(DeAct);
         MenBar.add(Conf);
         MenBar.add(AConnect);
 
 
-            // Activate Server
-            Act.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+        // Activate Server
+        Act.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-                    server = new Server(owner);
-                        server.start();
-                        //server.stop();
-                        requestFocus();
-
-
-                    }
+                server = new Server(owner);
+                server.start();
+                //server.stop();
+                requestFocus();
 
 
-            });
-            // Deactivate Server
+            }
+
+
+        });
+        // Deactivate Server
 //            DeAct.addActionListener(new ActionListener(){
 //                @Override
 //                public void actionPerformed(ActionEvent e) {
@@ -86,7 +86,7 @@ public class ServerG extends JFrame {
 //
 //            });
 // Config File Button
-        Conf.addActionListener(new ActionListener(){
+        Conf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -107,7 +107,6 @@ public class ServerG extends JFrame {
         });
 
 
-
         this.add(MenBar, BorderLayout.NORTH);
 
 
@@ -124,39 +123,36 @@ public class ServerG extends JFrame {
         MenBar2.add(WhoLock);
 
 
-
         this.add(MenBar2, BorderLayout.SOUTH);
 
         setVisible(true);
 
     }
-    public void addToTextArea(String s)
-  {
-    	con.addToTextArea(s);
-   }
 
+    public void addToTextArea(String s) {
+        con.addToTextArea(s);
+    }
 
 
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-       private final TextArea Text;
-        public FieldPanel(){
-            setLayout(new FlowLayout(20,20,10));
+        private final TextArea Text;
 
-            Text = new TextArea("Information Will be Displayed Here", 20,50);
+        public FieldPanel() {
+            setLayout(new FlowLayout(20, 20, 10));
+
+            Text = new TextArea("Information Will be Displayed Here", 20, 50);
 
             this.add(Text);
 
 
-
-
         }
-        public void addToTextArea(String x){
+
+        public void addToTextArea(String x) {
             Text.setText("");
             Text.append("SERVER receive: " + x + "\n");
         }
-
 
 
     }
@@ -166,13 +162,11 @@ public class ServerG extends JFrame {
         private final JButton Done;
 
 
-        public BottomPanel(){
+        public BottomPanel() {
 
 
             Close = new JButton("Exit");
             Done = new JButton("Create");
-
-
 
 
             this.add(Close);
@@ -182,7 +176,7 @@ public class ServerG extends JFrame {
         }
 
 
-        public void PrepareButtons(){
+        public void PrepareButtons() {
 
             // Close Button Action
             Close.addActionListener(new ActionListener() {
