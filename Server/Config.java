@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class Config implements Serializable
-{
+public class Config implements Serializable {
     private static Config config;
     private static String configFilePath;
 
@@ -37,16 +36,13 @@ public class Config implements Serializable
     // Other information
     private int lockoutThreshold;
 
-    private Config() { }
+    private Config() {
+    }
 
-    public static void printConfig()
-    {
-        if (config == null)
-        {
+    public static void printConfig() {
+        if (config == null) {
             System.out.println("Config has not been initialized.");
-        }
-        else
-        {
+        } else {
             System.out.println("Global values:");
             System.out.println("configFilePath = " + configFilePath);
             System.out.println();
@@ -79,14 +75,12 @@ public class Config implements Serializable
         }
     }
 
-    public static void initializeConfig()
-    {
+    public static void initializeConfig() {
         if (config == null)
             config = new Config();
     }
 
-    public static void initializeConfig(String filePath)
-    {
+    public static void initializeConfig(String filePath) {
 
         if (config == null) {
             config = new Config();
@@ -96,13 +90,11 @@ public class Config implements Serializable
 
     }
 
-    public static void setConfigFilePath(String filePath)
-    {
+    public static void setConfigFilePath(String filePath) {
         configFilePath = filePath;
     }
 
-    public static void assignDefaultValues()
-    {
+    public static void assignDefaultValues() {
         config.minUsernameLength = 1;
         config.maxUsernameLength = 64;
         config.illegalUsernameCharacters = new char[0];
@@ -110,7 +102,7 @@ public class Config implements Serializable
         config.minPasswordLength = 1;
         config.maxPasswordLength = 64;
         config.illegalPasswordCharacters = "";
-        config.requiredCharacterSets = new boolean[] {true, true, true, false};
+        config.requiredCharacterSets = new boolean[]{true, true, true, false};
         config.enforcePasswordHistory = false;
 
         config.validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -128,10 +120,8 @@ public class Config implements Serializable
     }
 
     // Read in config file
-    public static void loadConfig()
-    {
-        try
-        {
+    public static void loadConfig() {
+        try {
             FileInputStream fileIn = new FileInputStream(configFilePath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             config = (Config) in.readObject();
@@ -140,48 +130,39 @@ public class Config implements Serializable
         }
         //I added this catch block so that if there isn't a config file of the name provided
         // it creates one and gives it the default values - Jessica
-        catch  (FileNotFoundException e){
+        catch (FileNotFoundException e) {
             assignDefaultValues();
             saveConfig();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
     // Write out config file
-    public static void saveConfig()
-    {
-        try
-        {
+    public static void saveConfig() {
+        try {
             FileOutputStream fileOut = new FileOutputStream(configFilePath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(config);
             out.close();
             fileOut.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static int getMinUsernameLength() throws ConfigNotInitializedException
-    {
+    public static int getMinUsernameLength() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.minUsernameLength;
     }
-    public static void setMinUsernameLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setMinUsernameLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (length < 1)
@@ -189,14 +170,13 @@ public class Config implements Serializable
         config.minUsernameLength = length;
     }
 
-    public static int getMaxUsernameLength() throws ConfigNotInitializedException
-    {
+    public static int getMaxUsernameLength() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.maxUsernameLength;
     }
-    public static void setMaxUsernameLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setMaxUsernameLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (length < config.minUsernameLength)
@@ -204,14 +184,13 @@ public class Config implements Serializable
         config.maxUsernameLength = length;
     }
 
-    public static char[] getIllegalUsernameCharacters() throws ConfigNotInitializedException
-    {
+    public static char[] getIllegalUsernameCharacters() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.illegalUsernameCharacters;
     }
-    public static void setIllegalUsernameCharacters(char[] characters) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setIllegalUsernameCharacters(char[] characters) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (characters == null)
@@ -219,14 +198,13 @@ public class Config implements Serializable
         config.illegalUsernameCharacters = characters;
     }
 
-    public static int getMinPasswordLength() throws ConfigNotInitializedException
-    {
+    public static int getMinPasswordLength() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.minPasswordLength;
     }
-    public static void setMinPasswordLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setMinPasswordLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (length < 1)
@@ -234,14 +212,13 @@ public class Config implements Serializable
         config.minPasswordLength = length;
     }
 
-    public static int getMaxPasswordLength() throws ConfigNotInitializedException
-    {
+    public static int getMaxPasswordLength() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.maxPasswordLength;
     }
-    public static void setMaxPasswordLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setMaxPasswordLength(int length) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (length < config.minPasswordLength)
@@ -249,14 +226,13 @@ public class Config implements Serializable
         config.maxPasswordLength = length;
     }
 
-    public static String getIllegalPasswordCharacters() throws ConfigNotInitializedException
-    {
+    public static String getIllegalPasswordCharacters() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.illegalPasswordCharacters;
     }
-    public static void setIllegalPasswordCharacters(String characters) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setIllegalPasswordCharacters(String characters) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (characters == null)
@@ -264,14 +240,13 @@ public class Config implements Serializable
         config.illegalPasswordCharacters = characters;
     }
 
-    public static boolean[] getRequiredCharacterSets() throws ConfigNotInitializedException
-    {
+    public static boolean[] getRequiredCharacterSets() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.requiredCharacterSets;
     }
-    public static void setRequiredCharacterSets(boolean[] characterSets) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setRequiredCharacterSets(boolean[] characterSets) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (characterSets == null)
@@ -281,27 +256,25 @@ public class Config implements Serializable
         config.requiredCharacterSets = characterSets;
     }
 
-    public static boolean getEnforcePasswordHistory() throws ConfigNotInitializedException
-    {
+    public static boolean getEnforcePasswordHistory() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.enforcePasswordHistory;
     }
-    public static void setRequiredCharacterSets(boolean enforceHistory) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setRequiredCharacterSets(boolean enforceHistory) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         config.enforcePasswordHistory = enforceHistory;
     }
 
-    public static String getValidEmailFormat() throws ConfigNotInitializedException
-    {
+    public static String getValidEmailFormat() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.validEmailFormat;
     }
-    public static void setValidEmailFormat(String format) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setValidEmailFormat(String format) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (format == null)
@@ -309,14 +282,13 @@ public class Config implements Serializable
         config.validEmailFormat = format;
     }
 
-    public static String getEmailUsername() throws ConfigNotInitializedException
-    {
+    public static String getEmailUsername() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.emailUsername;
     }
-    public static void setEmailUsername(String email) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setEmailUsername(String email) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (email == null)
@@ -324,14 +296,13 @@ public class Config implements Serializable
         config.emailUsername = email;
     }
 
-    public static String getEmailPassword() throws ConfigNotInitializedException
-    {
+    public static String getEmailPassword() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.emailPassword;
     }
-    public static void setEmailPassword(String password) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setEmailPassword(String password) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (password == null)
@@ -339,14 +310,13 @@ public class Config implements Serializable
         config.emailPassword = password;
     }
 
-    public static String getUserDatabaseServerAddress() throws ConfigNotInitializedException
-    {
+    public static String getUserDatabaseServerAddress() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.userDatabaseServerAddress;
     }
-    public static void setUserDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setUserDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (filePath == null)
@@ -354,14 +324,13 @@ public class Config implements Serializable
         config.userDatabaseServerAddress = filePath;
     }
 
-    public static String getSystemDatabaseServerAddress() throws ConfigNotInitializedException
-    {
+    public static String getSystemDatabaseServerAddress() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.systemDatabaseServerAddress;
     }
-    public static void setSystemDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setSystemDatabaseServerAddress(String filePath) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (filePath == null)
@@ -369,14 +338,13 @@ public class Config implements Serializable
         config.systemDatabaseServerAddress = filePath;
     }
 
-    public static String getDatabaseUsername() throws ConfigNotInitializedException
-    {
+    public static String getDatabaseUsername() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         return config.databaseUsername;
     }
-    public static void setDatabaseUsername(String username) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setDatabaseUsername(String username) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (username == null)
@@ -384,14 +352,13 @@ public class Config implements Serializable
         config.databaseUsername = username;
     }
 
-    public static String getDatabasePassword() throws ConfigNotInitializedException
-    {
+    public static String getDatabasePassword() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The database username cannot be null.");
         return config.databasePassword;
     }
-    public static void setDatabasePassword(String password) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setDatabasePassword(String password) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (password == null)
@@ -399,14 +366,13 @@ public class Config implements Serializable
         config.databasePassword = password;
     }
 
-    public static int getLockoutThreshold() throws ConfigNotInitializedException
-    {
+    public static int getLockoutThreshold() throws ConfigNotInitializedException {
         if (config == null)
             throw new ConfigNotInitializedException("The database username cannot be null.");
         return config.lockoutThreshold;
     }
-    public static void setLockoutThreshold(int threshold) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
+
+    public static void setLockoutThreshold(int threshold) throws ConfigNotInitializedException, InvalidAttributeValueException {
         if (config == null)
             throw new ConfigNotInitializedException("The config file has not been initialized.");
         if (threshold < 1)
@@ -416,8 +382,7 @@ public class Config implements Serializable
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static boolean isValidPassword(String password)
-    {
+    public static boolean isValidPassword(String password) {
         String passwordregex = "^";
         if (config.requiredCharacterSets[0])
             passwordregex += "(?=.*[a-z])";
@@ -438,8 +403,7 @@ public class Config implements Serializable
         return matcher.find();
     }
 
-    public static boolean isValidEmail(String emailAddress)
-    {
+    public static boolean isValidEmail(String emailAddress) {
         String emailregex = config.validEmailFormat;
         Pattern emailpattern = Pattern.compile(emailregex);
         Matcher matcher = emailpattern.matcher(emailAddress);
@@ -447,15 +411,13 @@ public class Config implements Serializable
     }
 }
 
-class InvalidAttributeValueException extends Exception
-{
+class InvalidAttributeValueException extends Exception {
     public InvalidAttributeValueException(String errorMessage) {
         super(errorMessage);
     }
 }
 
-class ConfigNotInitializedException extends Exception
-{
+class ConfigNotInitializedException extends Exception {
     public ConfigNotInitializedException(String errorMessage) {
         super(errorMessage);
     }

@@ -2,6 +2,7 @@ package Server;
 
 // -- Download JavaMail API from here: http://www.oracle.com/technetwork/java/javamail/index.html
 // -- Download JavaBeans Activation Framework from here: http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#jaf-1.1.1-fcs-oth-JPR
+
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -15,72 +16,72 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmailUsingGMailSMTP {
 
-	// -- set the gmail host URL
-	final static private String host = "smtp.gmail.com";
+    // -- set the gmail host URL
+    final static private String host = "smtp.gmail.com";
 
-	// -- You must have a valid gmail username/password pair to use
-	// gmail as a SMTP service
-	static private String username = "<<your gmail username>>";
-	static private String password = "<<your gmail password>>";
+    // -- You must have a valid gmail username/password pair to use
+    // gmail as a SMTP service
+    static private String username = "<<your gmail username>>";
+    static private String password = "<<your gmail password>>";
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Scanner kb = new Scanner(System.in);
-		System.out.print("email username: ");
-		username = kb.next();
-		System.out.print("email password: ");
-		password = kb.next();
-		
-		// -- set up host properties
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+        Scanner kb = new Scanner(System.in);
+        System.out.print("email username: ");
+        username = kb.next();
+        System.out.print("email password: ");
+        password = kb.next();
 
-		// -- Get the Session object.
-		Session session = Session.getInstance(props,
-				new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				});
+        // -- set up host properties
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-		// -- Set up the sender's email account information
-		String from = "CLUCSC335@gmail.com";
+        // -- Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
 
-		// -- Set up the recipient's email address
-		String to = "reinhart@callutheran.edu";
-				
-		try {
-			// -- Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
+        // -- Set up the sender's email account information
+        String from = "CLUCSC335@gmail.com";
 
-			// -- Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
+        // -- Set up the recipient's email address
+        String to = "reinhart@callutheran.edu";
 
-			// -- Set To: header field of the header.
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        try {
+            // -- Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
 
-			// -- Set Subject: header field
-			message.setSubject("CSC335 Project");
+            // -- Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
 
-			// Now set the actual message
-			message.setText("This is the message.\nThis is the message.\nThis is the message.\n");
+            // -- Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-			// -- Send message
-			// -- use either these three lines or...
-			// Transport t = session.getTransport("smtp");
-			// t.connect();
-			// t.sendMessage(message, message.getAllRecipients());
-			
-			// -- .. this one (which ultimately calls sendMessage(...)
-			Transport.send(message);
+            // -- Set Subject: header field
+            message.setSubject("CSC335 Project");
 
-			System.out.println("Sent message successfully....");
+            // Now set the actual message
+            message.setText("This is the message.\nThis is the message.\nThis is the message.\n");
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+            // -- Send message
+            // -- use either these three lines or...
+            // Transport t = session.getTransport("smtp");
+            // t.connect();
+            // t.sendMessage(message, message.getAllRecipients());
+
+            // -- .. this one (which ultimately calls sendMessage(...)
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
