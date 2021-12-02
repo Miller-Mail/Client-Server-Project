@@ -3,6 +3,7 @@ package Server;
 import java.util.HashMap;
 import java.util.Set;
 
+import Common.Message;
 import Common.NetworkAccess;
 
 /**
@@ -28,24 +29,24 @@ public class CommandProtocol {
 	 * @param ch: ClientHandler object requesting the processing
 	 * @return
 	 */
-	public static void processCommand(String cmd, NetworkAccess na, ClientHandler ch)
+	public static void processCommand(Message cmd, NetworkAccess na, ClientHandler ch)
 	{
-		if (cmd.equals("disconnect")) {
+		if (cmd.message.equals("disconnect")) {
 
 			// -- no response to the client is necessary
 			na.close();
 			ch.getServer().removeID(ch.getID());
 			ch.Stop();
 		}
-		else if (cmd.equals("hello")) {
+		else if (cmd.message.equals("hello")) {
 				
 			// -- client is expecting a response
-			na.sendString("world!" + "\n", false);
+			na.sendMessage(new Message(null, "world!" + "\n"), false);
 			
 		}
 		else {
 			
-			na.sendString(cmd + "\n", false);
+			na.sendMessage(cmd, false);
 			
 		}		
 	}

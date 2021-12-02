@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Message implements Serializable
 {
-    User user;
-    String message;
+    public User user;
+    public String message;
 
     public Message(User user, String message)
     {
