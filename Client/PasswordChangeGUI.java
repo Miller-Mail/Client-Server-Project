@@ -44,10 +44,10 @@ public class PasswordChangeGUI extends JFrame {
         public class FieldPanel extends JPanel {
 
             //private JButton loadButton;
-            private JLabel Us;
-            private JTextField User;
-            private JLabel pas;
-            private JTextField Pass;
+            private final JLabel Us;
+            private final JTextField User;
+            private final JLabel pas;
+            private final JTextField Pass;
             public FieldPanel(){
                 setLayout(new FlowLayout(20,20,10));
 
@@ -68,8 +68,8 @@ public class PasswordChangeGUI extends JFrame {
         }
 
         public class BottomPanel extends JPanel {
-            private JButton Close;
-            private JButton Done;
+            private final JButton Close;
+            private final JButton Done;
 
 
             public BottomPanel(){

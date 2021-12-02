@@ -42,7 +42,7 @@ public class Server extends Thread {
 	/**
 	 * used for shutting down the server thread
 	 */
-	private boolean running = true;
+	private final boolean running = true;
 	
 	/**
 	 * unique ID for each client connection
@@ -58,7 +58,7 @@ public class Server extends Thread {
 	 * list of active client threads by ID number
 	 * Vector is a "thread safe" ArrayList
 	 */
-	private Vector<ClientHandler> clientconnections;
+	private final Vector<ClientHandler> clientconnections;
 	
 	public int getconnections ()
 	{

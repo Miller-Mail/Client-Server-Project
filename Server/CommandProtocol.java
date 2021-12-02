@@ -15,7 +15,7 @@ public class CommandProtocol {
 	/**
 	 * commands and their responses
 	 */
-	private static HashMap<String, String> commands;	
+	private static final HashMap<String, String> commands;
 	static {
 	    commands = new HashMap<>();
 	    commands.put("disconnect", "");

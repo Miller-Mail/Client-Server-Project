@@ -44,14 +44,14 @@ public class CreateAccountGUI extends JFrame {
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-        private JLabel Us;
-        private JTextField User;
-        private JLabel pas;
-        private JTextField Pass;
-        private JLabel em;
-        private JTextField email;
-        private JLabel repas;
-        private JTextField rePass;
+        private final JLabel Us;
+        private final JTextField User;
+        private final JLabel pas;
+        private final JTextField Pass;
+        private final JLabel em;
+        private final JTextField email;
+        private final JLabel repas;
+        private final JTextField rePass;
         public FieldPanel(){
             setLayout(new FlowLayout(20,20,10));
 
@@ -86,8 +86,8 @@ public class CreateAccountGUI extends JFrame {
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Close;
-        private JButton Done;
+        private final JButton Close;
+        private final JButton Done;
         private LoginGUI L;
 
 

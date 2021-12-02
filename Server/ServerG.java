@@ -20,11 +20,11 @@ public class ServerG extends JFrame {
 
     private final int WIDTH = 680;
     private final int HEIGHT = 450;
-    private ServerG owner = null;
+    private final ServerG owner = null;
 
     private Server server;
-    private BottomPanel low;
-    private FieldPanel con;
+    private final BottomPanel low;
+    private final FieldPanel con;
 
     public ServerG() {
         setTitle("Server");
@@ -140,7 +140,7 @@ public class ServerG extends JFrame {
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-       private TextArea Text;
+       private final TextArea Text;
         public FieldPanel(){
             setLayout(new FlowLayout(20,20,10));
 
@@ -162,8 +162,8 @@ public class ServerG extends JFrame {
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Close;
-        private JButton Done;
+        private final JButton Close;
+        private final JButton Done;
 
 
         public BottomPanel(){

@@ -5,7 +5,8 @@ import Common.User;
 //A class that provides all the interaction methods for the user database
 class UserDatabase extends Database{
     //Default Constructor
-    protected UserDatabase(){};
+    protected UserDatabase(){}
+
     //Overloaded constructor
     protected UserDatabase(String url, String username, String password){
         super(url,username,password);

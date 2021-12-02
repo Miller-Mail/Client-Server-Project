@@ -17,7 +17,7 @@ public class ClientHandler extends Thread {
 	/**
 	 * provides a peer-to-peer connection to the client
 	 */
-	private NetworkAccess networkaccess;
+	private final NetworkAccess networkaccess;
 	
 	/**
 	 * controls the run thread
@@ -27,17 +27,17 @@ public class ClientHandler extends Thread {
 	/**
 	 * the name of this client
 	 */
-	private String name;
+	private final String name;
 	
 	/**
 	 * the unique id of this client
 	 */
-	private int id;
+	private final int id;
 		
 	/**
 	 * a reference to the server that "has" this ClientHandler
 	 */
-	private Server server;
+	private final Server server;
 	
 	/**
 	 * Constructor saves the ID, socket, and reference to the server

@@ -23,8 +23,8 @@ public class RegexValidation {
 		)			               -- end of group #3
 		$			               -- end of the line	 
 	 */
-	private static String emailregex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	private static Pattern emailpattern = Pattern.compile(emailregex);
+	private static final String emailregex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private static final Pattern emailpattern = Pattern.compile(emailregex);
 	
 	/*
 		^                 # start-of-string
@@ -37,8 +37,8 @@ public class RegexValidation {
 		$                 # end-of-string	
 	 */
 	//private static String passwordregex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-	private static String passwordregex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-	private static Pattern passwordpattern = Pattern.compile(passwordregex);
+	private static final String passwordregex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+	private static final Pattern passwordpattern = Pattern.compile(passwordregex);
 	
 
 	/*
@@ -48,8 +48,8 @@ public class RegexValidation {
 	.{8,}             # anything, at least eight places though
 	$                 # end-of-string	
 	 */
-	private static String simplepasswordregex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
-	private static Pattern simplepasswordpattern = Pattern.compile(simplepasswordregex);
+	private static final String simplepasswordregex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
+	private static final Pattern simplepasswordpattern = Pattern.compile(simplepasswordregex);
 	
     public static boolean validSimplePassword(String password)
     {
@@ -162,12 +162,7 @@ public class RegexValidation {
     		++cursor;
     		// -- if we hit the end of string and not seen an illegal character then success and done
     		if (cursor == emailaddress.length()) {
-    			if (state == 6) {
-    				result = true;
-    			}
-    			else {
-    				result = false;
-    			}
+                result = state == 6;
     			state = -99;
     		}
     	}

@@ -1,5 +1,6 @@
 package Client;
 
+import Common.Message;
 import Common.NetworkAccess;
 
 public class Client {
@@ -26,7 +27,7 @@ public class Client {
 	/**
 	 * provides a peer-to-peer connection to the server
 	 */
-	private NetworkAccess networkaccess;
+	private final NetworkAccess networkaccess;
   	
 	public NetworkAccess getNetworkAccess() 
 	{
@@ -41,7 +42,6 @@ public class Client {
 	 */
 	public Client (String ip, int port)
 	{
-
 		networkaccess = new NetworkAccess(ip, port);
 	}
 	
@@ -52,7 +52,7 @@ public class Client {
 	public void disconnect ()
 	{
     	String text = "disconnect";
-		networkaccess.sendString(text,  false);
+		networkaccess.sendMessage(new Message(null, text),  false);
 		networkaccess.close();		
 	}
 }

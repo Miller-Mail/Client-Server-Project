@@ -51,10 +51,10 @@ public class LoginGUI extends JFrame {
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-       private JLabel Us;
-       private JTextField User;
-       private JLabel pas;
-        private JTextField Pass;
+       private final JLabel Us;
+       private final JTextField User;
+       private final JLabel pas;
+        private final JTextField Pass;
 public FieldPanel(){
     setLayout(new FlowLayout(20,20,10));
 Us = new JLabel("Username");
@@ -73,11 +73,11 @@ Us = new JLabel("Username");
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Close;
-        private JButton Log;
-        private JButton Forgot;
-        private JButton CreateA;
-        private JButton Disconnect;
+        private final JButton Close;
+        private final JButton Log;
+        private final JButton Forgot;
+        private final JButton CreateA;
+        private final JButton Disconnect;
         private CreateAccountGUI A;
 
         public BottomPanel(){

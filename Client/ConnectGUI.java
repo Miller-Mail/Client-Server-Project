@@ -45,11 +45,11 @@ public class ConnectGUI extends JFrame {
     }
 
     public class DataPanel extends JPanel {
-        private JLabel I;
-        private JTextField IP;
-        private JButton Adv;
-        private JLabel Portn;
-        private JTextField portnum;
+        private final JLabel I;
+        private final JTextField IP;
+        private final JButton Adv;
+        private final JLabel Portn;
+        private final JTextField portnum;
 
         DataPanel() {
             setLayout(new FlowLayout(1, 1, 1));
@@ -78,8 +78,8 @@ public class ConnectGUI extends JFrame {
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Connect;
-        private JButton Close;
+        private final JButton Connect;
+        private final JButton Close;
         private LoginGUI Log;
 
 
@@ -106,16 +106,16 @@ public class ConnectGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (client == null) {
                         try {
-                          // String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
-                          // int port = 8000;
-                           String host = Data.IP.getText();
-                           int port = Integer.parseInt(Data.portnum.getText());
-                           System.out.println(host);
-                           System.out.println(port);
+                            String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
+                            int port = 8000;
+//                            String host = Data.IP.getText();
+//                            int port = Integer.parseInt(Data.portnum.getText());
+                            System.out.println(host);
+                            System.out.println(port);
                             client = new Client(host, port);
                             Log = new LoginGUI();
 
-                        }catch(Exception m){
+                        } catch(Exception m) {
 
                         }
                     }

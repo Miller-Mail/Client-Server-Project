@@ -18,7 +18,8 @@ class Database {
     private Statement stmt = null;
     private ResultSet rset = null;
     //default constructor
-    protected Database(){};
+    protected Database(){}
+
     //constructor with url, username and password
     protected Database(String url, String username, String password){
         this.url = url;
