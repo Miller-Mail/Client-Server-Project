@@ -1,6 +1,6 @@
-//package Client;
-//
-//
+package Client;
+
+
 //import javafx.application.Application;
 //import javafx.application.Platform;
 //import javafx.event.ActionEvent;
@@ -14,7 +14,7 @@
 //import javafx.scene.layout.VBox;
 //import javafx.stage.Stage;
 //import javafx.stage.WindowEvent;
-//
+
 //public class ClientGUI extends Application
 //{
 //	Client client = null;
@@ -86,7 +86,7 @@
 //    public class ControlBoxInner extends VBox {
 //
 //        private Button disconnectbutton = new Button("Disconnect");
-//        private Button connectbutton = new Button("Connect");
+//        private Button connectbutton = new Button("Client.Connect");
 //        private Button messagebutton = new Button("Send Message");
 //
 //        private TextField messagefield = new TextField();

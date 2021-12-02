@@ -37,16 +37,6 @@ public class Config implements Serializable
     // Other information
     private int lockoutThreshold;
 
-    public static void main(String[] args) throws ConfigNotInitializedException, InvalidAttributeValueException
-    {
-        Config.initializeConfig("ServerConfiguration.conf");
-        Config.setConfigFilePath("ServerConfiguration.conf");
-        Config.assignDefaultValues();
-        Config.saveConfig();
-        Config.loadConfig();
-        Config.printConfig();
-    }
-
     private Config() { }
 
     public static void printConfig()
@@ -91,21 +81,8 @@ public class Config implements Serializable
 
     public static void initializeConfig()
     {
-
-        if (config == null) {
+        if (config == null)
             config = new Config();
-        }
-
-    }
-    public static void initializeConfig(String filePath)
-    {
-
-        if (config == null) {
-            config = new Config();
-            setConfigFilePath(filePath);
-            loadConfig();
-        }
-
     }
 
     public static void initializeConfig(String filePath)

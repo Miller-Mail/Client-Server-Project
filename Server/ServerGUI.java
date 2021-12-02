@@ -1,21 +1,21 @@
-//package Server;
+package Server;
+
+
+//import javafx.application.Application;
+//import javafx.application.Platform;
+//import javafx.event.ActionEvent;
+//import javafx.event.EventHandler;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Button;
+//import javafx.scene.control.TextArea;
+//import javafx.scene.control.TextField;
+//import javafx.scene.layout.BorderPane;
+//import javafx.scene.layout.VBox;
+//import javafx.stage.Stage;
+//import javafx.stage.WindowEvent;
 //
 //
-////import javafx.application.Application;
-////import javafx.application.Platform;
-////import javafx.event.ActionEvent;
-////import javafx.event.EventHandler;
-////import javafx.scene.Scene;
-////import javafx.scene.control.Button;
-////import javafx.scene.control.TextArea;
-////import javafx.scene.control.TextField;
-////import javafx.scene.layout.BorderPane;
-////import javafx.scene.layout.VBox;
-////import javafx.stage.Stage;
-////import javafx.stage.WindowEvent;
-//
-//
-//public class ServerGUI extends Application
+//public class ServerGUI
 //{
 //    int WIDTH = 250;
 //    int HEIGHT = 256;
@@ -35,6 +35,7 @@
 //    {
 //    	// -- Application title
 //        mainStage.setTitle("JavaFX Graphics Application");
+//        // Sets Width for Swing
 //        mainStage.setWidth(WIDTH);
 //
 //    	// -- construct the controls
@@ -71,6 +72,7 @@
 //        launch(args);
 //    }
 //
+//    //PERFECT
 //    public void addToTextArea(String s)
 //    {
 //    	controlBox.addToTextArea(s);
