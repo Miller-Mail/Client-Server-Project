@@ -98,7 +98,8 @@ public class NetworkAccess {
 			throw e;
 		}
 		catch (ClassNotFoundException e) {
-			throw e; //printStackTrace();
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
