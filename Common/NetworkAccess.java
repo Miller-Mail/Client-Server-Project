@@ -1,9 +1,6 @@
 package Common;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -19,8 +16,8 @@ public class NetworkAccess {
 	 * stream variables for peer to peer communication
 	 * to be opened on top of the socket 
 	 */
-	private BufferedReader datain;
-	private DataOutputStream dataout;
+	private ObjectInputStream datain;
+	private ObjectOutputStream dataout;
 
 	/**
 	 * Constructor performs connection construction for the client
@@ -40,8 +37,8 @@ public class NetworkAccess {
 			// -- wrap the socket in stream I/O objects
 			//    these are for passing String types over the network
 			//    there are other stream types (Object stream) that can be used
-			datain = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			dataout = new DataOutputStream(socket.getOutputStream());
+			datain = new ObjectInputStream(socket.getInputStream());
+			dataout = new ObjectOutputStream(socket.getOutputStream());
 			
 		} 
 		catch (UnknownHostException e) {
@@ -75,8 +72,8 @@ public class NetworkAccess {
 			// -- wrap the socket in stream I/O objects
 			//    these are for passing String types over the network
 			//    there are other stream types (Object stream) that can be used
-			datain = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			dataout = new DataOutputStream(socket.getOutputStream());
+			datain = new ObjectInputStream(socket.getInputStream());
+			dataout = new ObjectOutputStream(socket.getOutputStream());
 			
 		} 
 		catch (IOException e) {
@@ -91,13 +88,17 @@ public class NetworkAccess {
 	 * 
 	 * @return string from the stream
 	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
-	public String readString () throws IOException
+	public Message readMessage () throws IOException, ClassNotFoundException
 	{
 		try {
-			return datain.readLine();
+			return (Message) datain.readObject();
 		} catch (IOException e) {
 			throw e;
+		}
+		catch (ClassNotFoundException e) {
+			throw e; //printStackTrace();
 		}
 	}
 	
@@ -110,9 +111,9 @@ public class NetworkAccess {
 	 *        server will set it to false
 	 * @return
 	 */
-	public String sendString (String _msg, boolean acknowledge)
+	public Message sendMessage (Message _msg, boolean acknowledge)
 	{
-		String rtnmsg = "";
+		Message rtnmsg = null;
 
 		// -- the protocol is this:
 		//    client sends a \n terminated String to the server
@@ -122,7 +123,7 @@ public class NetworkAccess {
 			// -- the server only receives String objects that are
 			//    terminated with a newline \n"
 			// -- send the String making sure to flush the buffer
-			dataout.writeBytes(_msg + "\n");
+			dataout.writeObject(_msg);
 			dataout.flush();
 			
 			if (acknowledge) {
@@ -131,18 +132,21 @@ public class NetworkAccess {
 				//    That is, if there is no String to read, it will read "". Doing it this way does not allow
 				//    that to occur. We must get a response from the server. Time out could be implemented with
 				//    a counter.
-				rtnmsg = "";
+				rtnmsg = null;
 				do {
 					// -- this is a non-blocking read
-					rtnmsg = datain.readLine();
+					rtnmsg = (Message) datain.readObject();
 					
-				} while (rtnmsg.equals(""));
+				} while (rtnmsg == null);
 			}						
 		} catch (IOException e) {
 			
 			e.printStackTrace();
 			System.exit(1);
 			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
 		}
 		
 		return rtnmsg;

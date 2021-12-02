@@ -1,7 +1,9 @@
 package Common;
 
+import java.io.Serializable;
+
 //A class for holding all of a users records from the user database
-public class User {
+public class User implements Serializable {
 
 
     //Variables for holding the user data
