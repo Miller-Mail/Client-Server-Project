@@ -3,6 +3,7 @@ package Server;
 import java.io.IOException;
 import java.net.Socket;
 
+import Common.Message;
 import Common.NetworkAccess;
 
 
@@ -99,7 +100,7 @@ public class ClientHandler extends Thread {
 				//    on the end due to how BufferedReader readLine() works.
 				//    The client adds it to the user's string but the BufferedReader
 				//    readLine() call strips it off
-				String cmd = networkaccess.readString();
+				Message cmd = networkaccess.readMessage();
 				
 				// -- if it is not the termination message, send it back adding the
 				//    required (by readLine) "\n"
