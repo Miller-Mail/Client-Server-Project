@@ -80,6 +80,7 @@ public class ConnectGUI extends JFrame {
     public class BottomPanel extends JPanel {
         private JButton Connect;
         private JButton Close;
+        private LoginGUI Log;
 
 
 
@@ -88,6 +89,7 @@ public class ConnectGUI extends JFrame {
 
             Connect = new JButton("Client.Connect");
             Close = new JButton("Close");
+
 
 
             this.add(Connect);
@@ -111,6 +113,8 @@ public class ConnectGUI extends JFrame {
                            System.out.println(host);
                            System.out.println(port);
                             client = new Client(host, port);
+                            Log = new LoginGUI();
+
                         }catch(Exception m){
 
                         }

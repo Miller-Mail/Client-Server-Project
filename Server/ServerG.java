@@ -69,7 +69,7 @@ public class ServerG extends JFrame {
 
                     server = new Server(owner);
                         server.start();
-                        server.stop();
+                        //server.stop();
                         requestFocus();
 
 
