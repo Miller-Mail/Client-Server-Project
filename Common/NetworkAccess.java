@@ -90,7 +90,7 @@ public class NetworkAccess {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public Message readMessage () throws IOException, ClassNotFoundException
+	public Message readMessage () throws IOException
 	{
 		try {
 			return (Message) datain.readObject();
@@ -100,6 +100,7 @@ public class NetworkAccess {
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
+			return null;
 		}
 	}
 	
