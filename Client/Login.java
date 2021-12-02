@@ -13,9 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+
 public class Login extends JFrame {
-    private final int WIDTH = 470;
+    private final int WIDTH = 750;
     private final int HEIGHT = 250;
+    private boolean Visibility;
+    Client client = null;
 
     public Login() {
         setTitle("Client.Login Screen");
@@ -37,8 +40,12 @@ public class Login extends JFrame {
 
         BottomPanel low = new BottomPanel();
         this.add(low, BorderLayout.SOUTH);
-        setVisible(true);
+        this.setVisible(true);
+        Visibility = true;
 
+    }
+    private void SetVis(){
+        this.setVisible(Visibility);
     }
 
     public class FieldPanel extends JPanel {
@@ -51,9 +58,9 @@ public class Login extends JFrame {
 public FieldPanel(){
     setLayout(new FlowLayout(20,20,10));
 Us = new JLabel("Username");
-    User = new JTextField("", 10);
+    User = new JTextField("", 20);
     pas = new JLabel("Password");
-    Pass = new JTextField("", 10);
+    Pass = new JTextField("", 20);
 
 
     this.add(Us);
@@ -69,19 +76,23 @@ Us = new JLabel("Username");
         private JButton Close;
         private JButton Log;
         private JButton Forgot;
-        private JButton Help;
+        private JButton CreateA;
+        private JButton Disconnect;
+        private CreateAccount A;
 
         public BottomPanel(){
 
             Forgot = new JButton("Recover Password");
             Close = new JButton("Close");
             Log = new JButton("Client.Login");
-            Help = new JButton("Help");
+            CreateA = new JButton("Create Account");
+            Disconnect = new JButton("Disconnect");
 
             this.add(Forgot,BorderLayout.WEST,-1);
             this.add(Log);
+            this.add(CreateA);
+            this.add(Disconnect);
             this.add(Close);
-            this.add(Help);
 
            PrepareButtons();
 
@@ -111,11 +122,23 @@ Us = new JLabel("Username");
             });
 
             // Help Button Action
-            Help.addActionListener(new ActionListener() {
+            CreateA.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
+                    Visibility = false;
+                    SetVis();
+                    A = new CreateAccount();
 
                 }
             });
+
+            Disconnect.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                    client.disconnect();
+           		client = null;
+               	requestFocus();
+                }
+            });
+
 
 
         }

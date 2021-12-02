@@ -88,6 +88,7 @@ public class CreateAccount extends JFrame {
     public class BottomPanel extends JPanel {
         private JButton Close;
         private JButton Done;
+        private Login L;
 
 
         public BottomPanel() {
@@ -107,7 +108,9 @@ public class CreateAccount extends JFrame {
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    System.exit(0);
+                    dispose();
+                    L = new Login();
+
                 }
             });
 
