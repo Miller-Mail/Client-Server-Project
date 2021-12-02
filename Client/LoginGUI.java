@@ -14,13 +14,13 @@ import javax.swing.JTextField;
 
 
 
-public class Login extends JFrame {
+public class LoginGUI extends JFrame {
     private final int WIDTH = 750;
     private final int HEIGHT = 250;
     private boolean Visibility;
     Client client = null;
 
-    public Login() {
+    public LoginGUI() {
         setTitle("Client.Login Screen");
 
         // -- size of the frame: width, height
@@ -78,7 +78,7 @@ Us = new JLabel("Username");
         private JButton Forgot;
         private JButton CreateA;
         private JButton Disconnect;
-        private CreateAccount A;
+        private CreateAccountGUI A;
 
         public BottomPanel(){
 
@@ -126,7 +126,7 @@ Us = new JLabel("Username");
                 public void actionPerformed(ActionEvent arg0) {
                     Visibility = false;
                     SetVis();
-                    A = new CreateAccount();
+                    A = new CreateAccountGUI();
 
                 }
             });
@@ -149,6 +149,6 @@ Us = new JLabel("Username");
 
 
     public static void main(String[] args) {
-new Login();
+new LoginGUI();
     }
 }

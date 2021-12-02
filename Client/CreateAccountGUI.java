@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CreateAccount extends JFrame {
+public class CreateAccountGUI extends JFrame {
 
     private final int WIDTH = 200;
     private final int HEIGHT = 400;
 
-    public CreateAccount() {
+    public CreateAccountGUI() {
         setTitle("Create Account");
 
         // -- size of the frame: width, height
@@ -88,7 +88,7 @@ public class CreateAccount extends JFrame {
     public class BottomPanel extends JPanel {
         private JButton Close;
         private JButton Done;
-        private Login L;
+        private LoginGUI L;
 
 
         public BottomPanel() {
@@ -109,7 +109,7 @@ public class CreateAccount extends JFrame {
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                     dispose();
-                    L = new Login();
+                    L = new LoginGUI();
 
                 }
             });
@@ -124,7 +124,7 @@ public class CreateAccount extends JFrame {
     }
 
         public static void main(String[] args) {
-            new CreateAccount();
+            new CreateAccountGUI();
         }
     }
 

@@ -14,14 +14,14 @@ import javax.swing.JTextField;
 
 
 
-public class Connect extends JFrame {
+public class ConnectGUI extends JFrame {
 
     private final int WIDTH = 740;
     private final int HEIGHT = 250;
     Client client = null;
     DataPanel Data;
 
-    public Connect() {
+    public ConnectGUI() {
         setTitle("Client.Connect");
 
         // -- size of the frame: width, height
@@ -125,7 +125,7 @@ public class Connect extends JFrame {
 
 
         public static void main(String[] args) {
-            new Connect();
+            new ConnectGUI();
         }
     }
 
