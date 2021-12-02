@@ -41,6 +41,7 @@ public class Client {
 	 */
 	public Client (String ip, int port)
 	{
+
 		networkaccess = new NetworkAccess(ip, port);
 	}
 	

@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 public class ServerG extends JFrame {
 
-    private final int WIDTH = 840;
+    private final int WIDTH = 680;
     private final int HEIGHT = 450;
     private ServerG owner = null;
 
@@ -50,34 +50,41 @@ public class ServerG extends JFrame {
         // MENU Settings
         JMenuBar MenBar = new JMenuBar();
         JButton Act = new JButton("Activate Surver");
-        JButton DeAct = new JButton("Deactivate Server");
+      //  JButton DeAct = new JButton("Deactivate Server");
         JButton Conf = new JButton("Edit Config");
+        JButton AConnect = new JButton("Number of Active Connections");
 
 
        // MenBar.add(Menu1);
         MenBar.add(Act);
-        MenBar.add(DeAct);
+       // MenBar.add(DeAct);
         MenBar.add(Conf);
+        MenBar.add(AConnect);
 
 
             // Activate Server
             Act.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
                     server = new Server(owner);
-                    server.start();
-                    requestFocus();
-                }
+                        server.start();
+                        //server.stop();
+                        requestFocus();
+
+
+                    }
+
 
             });
             // Deactivate Server
-            DeAct.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-
-            });
+//            DeAct.addActionListener(new ActionListener(){
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//
+//                }
+//
+//            });
 // Config File Button
         Conf.addActionListener(new ActionListener(){
             @Override
@@ -86,26 +93,6 @@ public class ServerG extends JFrame {
             }
 
         });
-
-
-
-        this.add(MenBar, BorderLayout.NORTH);
-
-
-        JMenuBar MenBar2 = new JMenuBar();
-        JButton AConnect = new JButton("Number of Active Connections");
-
-        JMenu Menu5 = new JMenu("Who is Logged in ");
-        JMenu Menu6 = new JMenu("Number Logged in ");
-        JMenu Menu7 = new JMenu("Number Registered");
-        JMenu Menu8 = new JMenu("Who is Locked Out");
-
-
-        MenBar2.add(AConnect);
-        MenBar2.add(Menu5);
-        MenBar2.add(Menu6);
-        MenBar2.add(Menu7);
-        MenBar2.add(Menu8);
 
 
         AConnect.addActionListener(new ActionListener() {
@@ -118,6 +105,24 @@ public class ServerG extends JFrame {
             }
 
         });
+
+
+
+        this.add(MenBar, BorderLayout.NORTH);
+
+
+        JMenuBar MenBar2 = new JMenuBar();
+        JButton WhoLog = new JButton("Who is Logged in ");
+        JButton NumLog = new JButton("Number Logged in ");
+        JButton NumReg = new JButton("Number Registered");
+        JButton WhoLock = new JButton("Who is Locked Out");
+
+
+        MenBar2.add(WhoLog);
+        MenBar2.add(NumLog);
+        MenBar2.add(NumReg);
+        MenBar2.add(WhoLock);
+
 
 
         this.add(MenBar2, BorderLayout.SOUTH);
@@ -148,6 +153,7 @@ public class ServerG extends JFrame {
 
         }
         public void addToTextArea(String x){
+            Text.setText("");
             Text.append("SERVER receive: " + x + "\n");
         }
 

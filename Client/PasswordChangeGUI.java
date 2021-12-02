@@ -12,12 +12,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PasswordChange extends JFrame {
+public class PasswordChangeGUI extends JFrame {
 
         private final int WIDTH = 200;
         private final int HEIGHT = 200;
 
-        public PasswordChange() {
+        public PasswordChangeGUI() {
             setTitle("Password Change");
 
             // -- size of the frame: width, height
@@ -107,7 +107,7 @@ public class PasswordChange extends JFrame {
 
 
         public static void main(String[] args) {
-            new PasswordChange();
+            new PasswordChangeGUI();
         }
     }
 
