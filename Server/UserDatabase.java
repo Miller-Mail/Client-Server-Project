@@ -12,6 +12,7 @@ class UserDatabase extends Database{
     }
     // method to get a user
     protected User getUser(String username){
+
         return new User();
     }
     //method to login a user
@@ -33,6 +34,7 @@ class UserDatabase extends Database{
 
     public static void main(String[] args) throws ConfigNotInitializedException {
 //        ConfigPopulator.populate();
+        Config.initializeConfig("ServerConfiguration.conf");
         UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(),Config.getDatabaseUsername(),Config.getDatabasePassword());
         usrDB.printResultSet(usrDB.query("SELECT * FROM users;"));
     }

@@ -115,7 +115,7 @@ public class ClientHandler extends Thread {
 				//         server responds with "SUCCESS\n"
 				//    this is where all the server side Use Cases will be handled
 			//	this.servergui.addToTextArea(cmd);
-				CommandProtocol.processCommand(cmd, networkaccess, this);
+//				CommandProtocol.processCommand(cmd, networkaccess, this);
 			} 
 			catch (IOException e) {
 				
