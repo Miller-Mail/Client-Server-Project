@@ -16,7 +16,7 @@ class Database {
     //database query variables
     private Connection conn = null;
     private Statement stmt = null;
-    private ResultSet rset = null;
+    protected ResultSet rset = null;
 
     //default constructor
     protected Database() {
