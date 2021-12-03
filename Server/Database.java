@@ -17,19 +17,23 @@ class Database {
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rset = null;
+
     //default constructor
-    protected Database(){};
+    protected Database() {
+    }
+
     //constructor with url, username and password
-    protected Database(String url, String username, String password){
+    protected Database(String url, String username, String password) {
         this.url = url;
-        this .username = username;
+        this.username = username;
         this.password = password;
         connect();
     }
+
     //connects the object to the specified server
-    protected void connect(){
-        try{
-            conn = DriverManager.getConnection(url,username,password);
+    protected void connect() {
+        try {
+            conn = DriverManager.getConnection(url, username, password);
             stmt = conn.createStatement();
         } catch (SQLException ex) {
             // handle any errors
@@ -39,28 +43,35 @@ class Database {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
     }
+
     //getters and setters
-    protected String getUrl(){
+    protected String getUrl() {
         return url;
     }
-    protected void setUrl(String url){
-        this.url  = url;
+
+    protected void setUrl(String url) {
+        this.url = url;
     }
-    protected String getUsername(){
+
+    protected String getUsername() {
         return username;
     }
-    protected void setUsername(String username){
+
+    protected void setUsername(String username) {
         this.username = username;
     }
-    protected String getPassword(){
+
+    protected String getPassword() {
         return password;
     }
-    protected void setPassword(String password){
+
+    protected void setPassword(String password) {
         this.password = password;
     }
+
     //database accessing methods
     // used with DELETE and INSERT
-    protected void update(String command, String table, String condition){
+    protected void update(String command, String table, String condition) {
         try {
             stmt.executeUpdate(command + " FROM " + table + " WHERE " + condition + ";");
         } catch (SQLException e) {
@@ -70,8 +81,9 @@ class Database {
             System.out.println("VendorError: " + e.getErrorCode());
         }
     }
+
     //overloaded update method where you can pass a complete sql command
-    protected void update(String command){
+    protected void update(String command) {
         try {
             stmt.executeUpdate(command);
         } catch (SQLException e) {
@@ -81,14 +93,14 @@ class Database {
             System.out.println("VendorError: " + e.getErrorCode());
         }
     }
+
     // used with SELECT
     //this is the version with a condition
     // used for queries like SELECT * FROM users WHERE username = `tim`
-    protected ResultSet query(String command, String columns, String table, String condition){
+    protected ResultSet query(String command, String columns, String table, String condition) {
         try {
             rset = stmt.executeQuery(command + " " + columns + " FROM " + table + " WHERE " + condition + ";");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
@@ -96,12 +108,12 @@ class Database {
         }
         return rset;
     }
+
     //this is the version without a condition
-    protected ResultSet query(String command, String columns, String table){
+    protected ResultSet query(String command, String columns, String table) {
         try {
             rset = stmt.executeQuery(command + " " + columns + " FROM " + table + ";");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
@@ -109,12 +121,12 @@ class Database {
         }
         return rset;
     }
+
     //update method where you can pass the complete sql command
-    protected ResultSet query(String command){
+    protected ResultSet query(String command) {
         try {
             rset = stmt.executeQuery(command);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
@@ -122,8 +134,8 @@ class Database {
         }
         return rset;
     }
-    public void printResultSet(ResultSet rset)
-    {
+
+    public void printResultSet(ResultSet rset) {
         try {
             // -- the metadata tells us how many columns in the data
             ResultSetMetaData rsmd = rset.getMetaData();
@@ -139,8 +151,7 @@ class Database {
                 }
                 System.out.println(rset.getString(numberOfColumns));
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -150,7 +161,7 @@ class Database {
 
     public static void main(String[] args) throws ConfigNotInitializedException {
 //        ConfigPopulator.populate();
-        Database dbase = new Database(Config.getSystemDatabaseServerAddress(),Config.getDatabaseUsername(),Config.getDatabasePassword());
+        Database dbase = new Database(Config.getSystemDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
         dbase.printResultSet(dbase.query("select * from data;"));
     }
 
