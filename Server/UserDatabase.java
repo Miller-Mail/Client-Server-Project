@@ -57,20 +57,30 @@ class UserDatabase extends Database {
                 }
 
             }
-//            usr.print();
+            usr.print();
+//            System.out.println(usr.getUsername());
 //            System.out.println(rset.getString(numberOfColumns));
         }
-        return new User();
+        return usr;
     }
 
     //method to login a user
     protected void login(User usr) {
-
+//        System.out.println(usr.getLoggedIn());
+        usr.setLoggedIn(usr.getLoggedIn() + 1);
+//        System.out.println(usr.getLoggedIn());
+//        this.update("UPDATE users SET `loggedIn` = '" + usr.getLoggedIn() + "' WHERE (`username` = '" + usr.getUsername() +"');");
+//        System.out.println(usr.getUsername());
+        this.update("UPDATE `users` SET `loggedIn` = '" + usr.getLoggedIn() + "' WHERE (`username` = '"+ usr.getUsername() + "');");
     }
 
     //method to log out a user
     protected void logout(User usr) {
-
+        int loggedIn = usr.getLoggedIn();
+        if(loggedIn > 0) {
+            usr.setLoggedIn(loggedIn - 1);
+            this.update("UPDATE `userdb`.`users` SET `loggedIn` = '" + usr.getLoggedIn() + "' WHERE (`username` = '" + usr.getUsername() + "');");
+        }
     }
 
     //method to return the number of locked out users
@@ -89,6 +99,8 @@ class UserDatabase extends Database {
         UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
 //        usrDB.printResultSet(usrDB.query("SELECT * FROM users;"));
         try {
+            User user = usrDB.getUser("jstojkovic");
+            usrDB.login(user);
             usrDB.getUser("jstojkovic");
         } catch (SQLException e) {
             e.printStackTrace();
