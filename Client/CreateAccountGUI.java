@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import javax.swing.JButton;
@@ -14,7 +16,7 @@ import javax.swing.JTextField;
 
 public class CreateAccountGUI extends JFrame {
 
-    private final int WIDTH = 200;
+    private final int WIDTH = 230;
     private final int HEIGHT = 400;
 
     public CreateAccountGUI() {
@@ -115,7 +117,24 @@ public class CreateAccountGUI extends JFrame {
 
             Done.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    System.exit(0);
+                    String validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                    Pattern emailpattern = Pattern.compile(validEmailFormat);
+
+
+                    Matcher matcher = emailpattern.matcher("email@gamil.com"); // Change to be pulled from GUI
+                    if (matcher.find()) {
+                        if ("password".equals("password")) { // Change to be pulled from GUI
+                            System.exit(0);
+                        }
+                        else
+                        {
+                            System.out.println("Passwords do not match");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("Invalid email address");
+                    }
                 }
             });
 
