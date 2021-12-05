@@ -23,7 +23,7 @@ class UserDatabase extends Database {
     // throws a sql exception that will be dealt with by the server depending on
     // the exception
     protected User getUser(String username) throws SQLException {
-        username = username.toLowerCase(Locale.ROOT);
+//        username = username.toLowerCase(Locale.ROOT);
         rset = this.query("SELECT * FROM users WHERE username = '" + username + "';");
 //        this.printResultSet(rset);
         ResultSetMetaData rsmd = rset.getMetaData();
@@ -63,7 +63,11 @@ class UserDatabase extends Database {
         }
         return usr;
     }
-
+    //method to update a user
+    protected void updateUser(User usr){
+        String username = usr.getUsername();
+        this.update("UPDATE `users` SET `password` = '"+ usr.getPassword() + "', `email` = '" + usr.getEmail() + "', `lockCount` = '" + usr.getLockCount() + "', `loggedIn` = '" + usr.getLoggedIn() + "' WHERE (`username` = '" + username +"');");
+    }
     //method to login a user
     protected void login(User usr) {
 //        System.out.println(usr.getLoggedIn());
@@ -82,10 +86,25 @@ class UserDatabase extends Database {
             this.update("UPDATE `userdb`.`users` SET `loggedIn` = '" + usr.getLoggedIn() + "' WHERE (`username` = '" + usr.getUsername() + "');");
         }
     }
+    //method to add a new user to the database
+    protected void addUser(User usr){
+        this.update("INSERT INTO `users` (`username`, `password`, `email`, `lockCount`, `loggedIn`) VALUES ('" + usr.getUsername() + "', '" + usr.getPassword() + "', '" + usr.getEmail() + "', '0', '0');");
+    }
 
     //method to return the number of locked out users
-    protected int getNumberOfLockedOut() {
-        return 0;
+    protected int getNumberOfLockedOut() throws SQLException {
+        int count = 0;
+        rset = this.query("Select lockCount from users;");
+        ResultSetMetaData rsmd = rset.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        while(rset.next()){
+            for(int i =1; i <= numberOfColumns; i++){
+                if(Integer.parseInt(rset.getString(i)) >= 3){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     //method to reset a user's lock count
@@ -99,9 +118,20 @@ class UserDatabase extends Database {
         UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
 //        usrDB.printResultSet(usrDB.query("SELECT * FROM users;"));
         try {
-            User user = usrDB.getUser("jstojkovic");
-            usrDB.login(user);
-            usrDB.getUser("jstojkovic");
+            User usr = usrDB.getUser("Jessica");
+//            User usr = new User("Jessica", "test123", "someEmail@gmail.com");
+//            usrDB.logout(user);
+//            usrDB.addUser(usr);
+//            usrDB.getUser("jstojkovic");
+//            usr.setUsername("Stojkovic");
+            usr.setPassword("123test");
+            usr.setEmail("fakeEmail@gmail.com");
+            usr.setLoggedIn(1);
+            usr.setLockCount(1);
+            usrDB.updateUser(usr);
+//            usrDB.getUser("Stojkovic");
+            usrDB.getUser("Jessica");
+            System.out.println(usrDB.getNumberOfLockedOut());
         } catch (SQLException e) {
             e.printStackTrace();
         }
