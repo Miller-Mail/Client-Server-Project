@@ -1,5 +1,6 @@
 package Client;
 
+import Common.Message;
 import Common.NetworkAccess;
 
 public class Client {
@@ -52,7 +53,8 @@ public class Client {
 	public void disconnect ()
 	{
     	String text = "disconnect";
-		networkaccess.sendString(text,  false);
+
+		networkaccess.sendMessage( new Message(null,text),  false);
 		networkaccess.close();		
 	}
 }
