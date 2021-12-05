@@ -37,6 +37,10 @@ public class User implements Serializable {
         return username;
     }
 
+    public void setUsername(String newUsername){
+        this.username = newUsername;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -67,6 +71,14 @@ public class User implements Serializable {
 
     public void setLoggedIn(int loggedIn) {
         this.loggedIn = loggedIn;
+    }
+
+    public void print(){
+        System.out.println("Username: " + this.username);
+        System.out.println("Password: " + this.password);
+        System.out.println("Email: " + this.email);
+        System.out.println("Lock Count: " + this.lockCount);
+        System.out.println("Loggedin: " + this.loggedIn);
     }
 
 }
