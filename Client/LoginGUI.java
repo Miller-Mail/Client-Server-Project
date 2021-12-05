@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-
 public class LoginGUI extends JFrame {
     private final int WIDTH = 750;
     private final int HEIGHT = 250;
@@ -34,7 +33,7 @@ public class LoginGUI extends JFrame {
         // -- set the layout manager and add items
         // 5, 5 is the border around the edges of the areas
         setLayout(new BorderLayout(5, 5));
-       FieldPanel con = new FieldPanel();
+        FieldPanel con = new FieldPanel();
         this.add(con, BorderLayout.CENTER);
 
 
@@ -44,43 +43,45 @@ public class LoginGUI extends JFrame {
         Visibility = true;
 
     }
-    private void SetVis(){
+
+    private void SetVis() {
         this.setVisible(Visibility);
     }
 
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-       private JLabel Us;
-       private JTextField User;
-       private JLabel pas;
-        private JTextField Pass;
-public FieldPanel(){
-    setLayout(new FlowLayout(20,20,10));
-Us = new JLabel("Username");
-    User = new JTextField("", 20);
-    pas = new JLabel("Password");
-    Pass = new JTextField("", 20);
+        private final JLabel Us;
+        private final JTextField User;
+        private final JLabel pas;
+        private final JTextField Pass;
+
+        public FieldPanel() {
+            setLayout(new FlowLayout(20, 20, 10));
+            Us = new JLabel("Username");
+            User = new JTextField("", 20);
+            pas = new JLabel("Password");
+            Pass = new JTextField("", 20);
 
 
-    this.add(Us);
-    this.add(User);
-    this.add(pas);
-    this.add(Pass);
-}
+            this.add(Us);
+            this.add(User);
+            this.add(pas);
+            this.add(Pass);
+        }
 
 
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Close;
-        private JButton Log;
-        private JButton Forgot;
-        private JButton CreateA;
-        private JButton Disconnect;
+        private final JButton Close;
+        private final JButton Log;
+        private final JButton Forgot;
+        private final JButton CreateA;
+        private final JButton Disconnect;
         private CreateAccountGUI A;
 
-        public BottomPanel(){
+        public BottomPanel() {
 
             Forgot = new JButton("Recover Password");
             Close = new JButton("Close");
@@ -88,22 +89,22 @@ Us = new JLabel("Username");
             CreateA = new JButton("Create Account");
             Disconnect = new JButton("Disconnect");
 
-            this.add(Forgot,BorderLayout.WEST,-1);
+            this.add(Forgot, BorderLayout.WEST, -1);
             this.add(Log);
             this.add(CreateA);
             this.add(Disconnect);
             this.add(Close);
 
-           PrepareButtons();
+            PrepareButtons();
 
         }
 
-        public void PrepareButtons(){
+        public void PrepareButtons() {
 
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                 System.exit(0);
+                    System.exit(0);
                 }
             });
 
@@ -134,21 +135,19 @@ Us = new JLabel("Username");
             Disconnect.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                     client.disconnect();
-           		client = null;
-               	requestFocus();
+                    client = null;
+                    requestFocus();
                 }
             });
 
 
-
         }
-
 
 
     }
 
 
     public static void main(String[] args) {
-new LoginGUI();
+        new LoginGUI();
     }
 }

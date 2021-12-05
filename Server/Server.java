@@ -42,7 +42,7 @@ public class Server extends Thread {
 	/**
 	 * used for shutting down the server thread
 	 */
-	private boolean running = true;
+	private final boolean running = true;
 	
 	/**
 	 * unique ID for each client connection
@@ -58,7 +58,7 @@ public class Server extends Thread {
 	 * list of active client threads by ID number
 	 * Vector is a "thread safe" ArrayList
 	 */
-	private Vector<ClientHandler> clientconnections;
+	private final Vector<ClientHandler> clientconnections;
 	
 	public int getconnections ()
 	{
@@ -103,7 +103,7 @@ public class Server extends Thread {
 					
 					// -- connection accepted, create a peer-to-peer socket
 					//    between the server (thread) and client (route the call to the requested extension)
-					peerconnection(socket);										
+				peerconnection(socket);
 			}
 		}
 		catch (IOException e) {

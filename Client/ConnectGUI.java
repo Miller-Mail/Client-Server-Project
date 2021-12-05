@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 import javax.swing.JButton;
@@ -11,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 
 public class ConnectGUI extends JFrame {
@@ -45,11 +46,11 @@ public class ConnectGUI extends JFrame {
     }
 
     public class DataPanel extends JPanel {
-        private JLabel I;
-        private JTextField IP;
-        private JButton Adv;
-        private JLabel Portn;
-        private JTextField portnum;
+        private final JLabel I;
+        private final JTextField IP;
+        private final JButton Adv;
+        private final JLabel Portn;
+        private final JTextField portnum;
 
         DataPanel() {
             setLayout(new FlowLayout(1, 1, 1));
@@ -78,10 +79,9 @@ public class ConnectGUI extends JFrame {
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Connect;
-        private JButton Close;
+        private final JButton Connect;
+        private final JButton Close;
         private LoginGUI Log;
-
 
 
         public BottomPanel() {
@@ -91,12 +91,17 @@ public class ConnectGUI extends JFrame {
             Close = new JButton("Close");
 
 
-
             this.add(Connect);
             this.add(Close);
 
             PrepareButtons();
         }
+
+        private String ipformat = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$";
+        Pattern ippattern = Pattern.compile(ipformat);
+        private String portformat = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
+        Pattern portpattern = Pattern.compile(portformat);
+
 
         public void PrepareButtons() {
             //Action Handlers here
@@ -106,17 +111,27 @@ public class ConnectGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (client == null) {
                         try {
-                          // String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
-                          // int port = 8000;
-                           String host = Data.IP.getText();
-                           int port = Integer.parseInt(Data.portnum.getText());
-                           System.out.println(host);
-                           System.out.println(port);
-                            client = new Client(host, port);
-                            Log = new LoginGUI();
+//                            String host = "127.0.0.1";
+//                            int port = 8000;
+                            String host = Data.IP.getText();
+                            int port = Integer.parseInt(Data.portnum.getText());
+                            System.out.println(host);
+                            System.out.println(port);
+                            Matcher matcher = ippattern.matcher(host);
+                            if (matcher.find()) {
+                                matcher = portpattern.matcher(Data.portnum.getText());
+                                if (matcher.find()) {
+                                    client = new Client(host, port);
+                                    Log = new LoginGUI();
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Invalid IP address");
+                            }
 
-                        }catch(Exception m){
-
+                        } catch (Exception m) {
+//                            System.out.println(m);
                         }
                     }
                 }
@@ -128,9 +143,9 @@ public class ConnectGUI extends JFrame {
     }
 
 
-        public static void main(String[] args) {
-            new ConnectGUI();
-        }
+    public static void main(String[] args) {
+        new ConnectGUI();
     }
+}
 
 
