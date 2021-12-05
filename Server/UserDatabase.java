@@ -27,15 +27,37 @@ class UserDatabase extends Database {
         rset = this.query("SELECT * FROM users WHERE username = '" + username + "';");
 //        this.printResultSet(rset);
         ResultSetMetaData rsmd = rset.getMetaData();
-        int numberOfColumns = rsmd.getColumnCount();
+        User usr = new User();
+        int numberOfColumns = rsmd.getColumnCount(); // get the number of columns in the result set
+        String data;
         while (rset.next()) { // I don't know why this while loop has to be here but it does
             // -- loop through the columns of the ResultSet
-            for (int i = 1; i < numberOfColumns; ++i) {
-                System.out.print(rset.getString(i) + "\t\t");
+            for (int i = 1; i <= numberOfColumns; ++i) {
+//                System.out.print(rset.getString(i) + "\t\t");
+                data = rset.getString(i);
                 if(i == 1){
-
+                    usr.setUsername(data);
+//                    System.out.println(usr.getUsername());
                 }
+                else if (i == 2){
+                    usr.setPassword(data);
+//                    System.out.println(usr.getPassword());
+                }
+                else if (i == 3){
+                    usr.setEmail(data);
+//                    System.out.println(usr.getEmail());
+                }
+                else if(i == 4){
+                    usr.setLockCount(Integer.parseInt(data));
+//                    System.out.println(usr.getLockCount());
+                }
+                else{
+                    usr.setLoggedIn(Integer.parseInt(data));
+//                    System.out.println(usr.getLoggedIn());
+                }
+
             }
+//            usr.print();
 //            System.out.println(rset.getString(numberOfColumns));
         }
         return new User();
