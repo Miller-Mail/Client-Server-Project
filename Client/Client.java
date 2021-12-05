@@ -3,6 +3,8 @@ package Client;
 import Common.Message;
 import Common.NetworkAccess;
 
+import java.net.ConnectException;
+
 public class Client {
 	
 	/*
@@ -39,7 +41,7 @@ public class Client {
      * @param ip:   the IP address of the server
      * @param port: the port on which the server is listening
      */
-    public Client(String ip, int port) {
+    public Client(String ip, int port) throws ConnectException {
         networkaccess = new NetworkAccess(ip, port);
     }
 

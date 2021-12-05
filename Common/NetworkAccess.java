@@ -1,6 +1,7 @@
 package Common;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -26,7 +27,7 @@ public class NetworkAccess {
      * @param ip:   IP address of the server
      * @param port: port number on which the server is listening
      */
-    public NetworkAccess(String ip, int port) {
+    public NetworkAccess(String ip, int port) throws ConnectException {
         try {
             // -- construct the peer to peer socket
             //    check if the server is available and connects if it is,
@@ -44,6 +45,9 @@ public class NetworkAccess {
             System.out.println("Host " + ip + " at port " + port + " is unavailable.");
             System.exit(1);
 
+        } catch (ConnectException e) {
+            System.out.println("Host " + ip + " at port " + port + " is unreachable.");
+            throw e;
         } catch (IOException e) {
 
             System.out.println("Unable to create I/O streams.");
