@@ -97,12 +97,6 @@ public class ConnectGUI extends JFrame {
             PrepareButtons();
         }
 
-        private String ipformat = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$";
-        Pattern ippattern = Pattern.compile(ipformat);
-        private String portformat = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
-        Pattern portpattern = Pattern.compile(portformat);
-
-
         public void PrepareButtons() {
             //Action Handlers here
 
@@ -111,6 +105,10 @@ public class ConnectGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (client == null) {
                         try {
+                            String ipformat = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$";
+                            Pattern ippattern = Pattern.compile(ipformat);
+                            String portformat = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
+                            Pattern portpattern = Pattern.compile(portformat);
 //                            String host = "127.0.0.1";
 //                            int port = 8000;
                             String host = Data.IP.getText();
