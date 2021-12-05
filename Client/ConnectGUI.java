@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 
 import javax.swing.JButton;
@@ -95,6 +97,12 @@ public class ConnectGUI extends JFrame {
             PrepareButtons();
         }
 
+        private String ipformat = "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$";
+        Pattern ippattern = Pattern.compile(ipformat);
+        private String portformat = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
+        Pattern portpattern = Pattern.compile(portformat);
+
+
         public void PrepareButtons() {
             //Action Handlers here
 
@@ -103,17 +111,27 @@ public class ConnectGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (client == null) {
                         try {
-//                            String host = "127.0.0.1";// "192.168.1.8";//"127.0.0.1";
+//                            String host = "127.0.0.1";
 //                            int port = 8000;
                             String host = Data.IP.getText();
                             int port = Integer.parseInt(Data.portnum.getText());
                             System.out.println(host);
                             System.out.println(port);
-                            client = new Client(host, port);
-                            Log = new LoginGUI();
+                            Matcher matcher = ippattern.matcher(host);
+                            if (matcher.find()) {
+                                matcher = portpattern.matcher(Data.portnum.getText());
+                                if (matcher.find()) {
+                                    client = new Client(host, port);
+                                    Log = new LoginGUI();
+                                }
+                            }
+                            else
+                            {
+                                System.out.println("Invalid IP address");
+                            }
 
                         } catch (Exception m) {
-
+//                            System.out.println(m);
                         }
                     }
                 }
