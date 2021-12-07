@@ -59,6 +59,12 @@ public class Server extends Thread {
 	 * Vector is a "thread safe" ArrayList
 	 */
 	private final Vector<ClientHandler> clientconnections;
+
+	/**
+	 * the user and system databases
+	 */
+	private UserDatabase userDatabase;
+	private Database systemDatabase;
 	
 	public int getconnections ()
 	{
@@ -69,13 +75,34 @@ public class Server extends Thread {
 	 * constructor creates the list of clients and
 	 * starts the server listening on the port
 	 */
-	public Server (ServerG gui)
-	{
+	public Server (ServerG gui) {
 		this.servergui = gui;
 		//System.out.println("yay");
 		
 		// -- construct the list of active client threads
 		clientconnections = new Vector<ClientHandler>();
+
+		try {
+			// -- construct the user and system databases
+			this.userDatabase = new UserDatabase(
+					Config.getUserDatabaseServerAddress(),
+					Config.getDatabaseUsername(),
+					Config.getDatabasePassword());
+			this.systemDatabase = new Database(
+					Config.getSystemDatabaseServerAddress(),
+					Config.getDatabaseUsername(),
+					Config.getDatabasePassword());
+		}
+		catch (ConfigNotInitializedException e)
+		{
+			System.out.println("Config not initialized!");
+			System.exit(1);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getStackTrace());
+			System.exit(1);
+		}
 	}
 
 	/**
