@@ -23,20 +23,21 @@ public class SendEmailUsingGMailSMTP {
 	static private String username = "<<your gmail username>>";
 	static private String password = "<<your gmail password>>";
 
-	public static void main(String[] args) {
+	public static void sendEmail(String Email, String Message) throws ConfigNotInitializedException {
 
 		Scanner kb = new Scanner(System.in);
 		System.out.print("email username: ");
 		username = kb.next();
 		System.out.print("email password: ");
 		password = kb.next();
-		
+
 		// -- set up host properties
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
+
 
 		// -- Get the Session object.
 		Session session = Session.getInstance(props,
@@ -47,11 +48,11 @@ public class SendEmailUsingGMailSMTP {
 				});
 
 		// -- Set up the sender's email account information
-		String from = "CLUCSC335@gmail.com";
+		String from = Config.getEmailUsername();
 
 		// -- Set up the recipient's email address
-		String to = "reinhart@callutheran.edu";
-				
+		String to = "mnazim@callutheran.edu";
+
 		try {
 			// -- Create a default MimeMessage object.
 			Message message = new MimeMessage(session);
@@ -66,14 +67,14 @@ public class SendEmailUsingGMailSMTP {
 			message.setSubject("CSC335 Project");
 
 			// Now set the actual message
-			message.setText("This is the message.\nThis is the message.\nThis is the message.\n");
+			message.setText(Message);
 
 			// -- Send message
 			// -- use either these three lines or...
 			// Transport t = session.getTransport("smtp");
 			// t.connect();
 			// t.sendMessage(message, message.getAllRecipients());
-			
+
 			// -- .. this one (which ultimately calls sendMessage(...)
 			Transport.send(message);
 
@@ -82,5 +83,8 @@ public class SendEmailUsingGMailSMTP {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
+
+
 	}
 }
+
