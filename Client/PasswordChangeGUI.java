@@ -14,8 +14,12 @@ import javax.swing.JTextField;
 
 public class PasswordChangeGUI extends JFrame {
 
+
+    private InteractiveGUI y;
+
     private final int WIDTH = 200;
     private final int HEIGHT = 200;
+    private boolean Visibility;
 
     public PasswordChangeGUI() {
         setTitle("Password Change");
@@ -38,7 +42,11 @@ public class PasswordChangeGUI extends JFrame {
         BottomPanel low = new BottomPanel();
         this.add(low, BorderLayout.SOUTH);
         setVisible(true);
+        Visibility = true;
 
+    }
+    private void SetVis(){
+        setVisible(Visibility);
     }
 
     public class FieldPanel extends JPanel {
@@ -91,7 +99,9 @@ public class PasswordChangeGUI extends JFrame {
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    System.exit(0);
+                   Visibility = false;
+                    SetVis();
+                    y = new InteractiveGUI();
                 }
             });
 

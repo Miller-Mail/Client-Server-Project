@@ -16,8 +16,9 @@ import javax.swing.JTextField;
 
 public class CreateAccountGUI extends JFrame {
 
-    private final int WIDTH = 230;
+    private final int WIDTH = 200;
     private final int HEIGHT = 400;
+    private boolean Visibility;
 
     public CreateAccountGUI() {
         setTitle("Create Account");
@@ -40,7 +41,11 @@ public class CreateAccountGUI extends JFrame {
         BottomPanel low = new BottomPanel();
         this.add(low, BorderLayout.SOUTH);
         setVisible(true);
+        Visibility = true;
 
+    }
+    private void SetVis(){
+        setVisible(Visibility);
     }
 
     public class FieldPanel extends JPanel {
@@ -109,7 +114,8 @@ public class CreateAccountGUI extends JFrame {
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    dispose();
+                    Visibility = false;
+                   SetVis();
                     L = new LoginGUI();
 
                 }

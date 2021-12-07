@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 
 
 public class InteractiveGUI extends JFrame {
+    private PasswordChangeGUI x;
+    private boolean Visiblity;
     InteractiveGUI() {
 
         setTitle("Interactive Screen");
@@ -39,6 +41,9 @@ public class InteractiveGUI extends JFrame {
         this.add(low, BorderLayout.SOUTH);
         this.setVisible(true);
 
+    }
+    private void SetVis(){
+        setVisible(Visiblity);
     }
 
     public class FieldPanel extends JPanel {
@@ -84,11 +89,12 @@ public class InteractiveGUI extends JFrame {
         public void PrepareButtons() {
             //Action Handlers here
 
-            Close.addActionListener(new ActionListener() {
+            ChangeP.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-
+                    Visiblity = false;
+                    SetVis();
+                    x = new PasswordChangeGUI();
                 }
 
             });
