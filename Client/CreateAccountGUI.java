@@ -16,8 +16,11 @@ import javax.swing.JTextField;
 
 public class CreateAccountGUI extends JFrame {
 
-    private final int WIDTH = 230;
+    private final int WIDTH = 200;
     private final int HEIGHT = 400;
+    private boolean Visibility;
+    FieldPanel x;
+    BottomPanel y;
 
     public CreateAccountGUI() {
         setTitle("Create Account");
@@ -33,14 +36,18 @@ public class CreateAccountGUI extends JFrame {
         // -- set the layout manager and add items
         // 5, 5 is the border around the edges of the areas
         setLayout(new BorderLayout(5, 5));
-        FieldPanel con = new FieldPanel();
-        this.add(con, BorderLayout.CENTER);
+         x = new FieldPanel();
+        this.add(x, BorderLayout.CENTER);
 
 
-        BottomPanel low = new BottomPanel();
-        this.add(low, BorderLayout.SOUTH);
+        y= new BottomPanel();
+        this.add(y, BorderLayout.SOUTH);
         setVisible(true);
+        Visibility = true;
 
+    }
+    private void SetVis(){
+        setVisible(Visibility);
     }
 
     public class FieldPanel extends JPanel {
@@ -109,7 +116,8 @@ public class CreateAccountGUI extends JFrame {
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    dispose();
+                    Visibility = false;
+                   SetVis();
                     L = new LoginGUI();
 
                 }
@@ -117,13 +125,18 @@ public class CreateAccountGUI extends JFrame {
 
             Done.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
+                    String Email = x.email.getText();
+                    String User = x.User.getText();
+                    String Password = x.Pass.getText();
+                    String  RePassword = x.rePass.getText();
+
                     String validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
                     Pattern emailpattern = Pattern.compile(validEmailFormat);
 
 
-                    Matcher matcher = emailpattern.matcher("email@gamil.com"); // Change to be pulled from GUI
+                    Matcher matcher = emailpattern.matcher(Email); // Change to be pulled from GUI
                     if (matcher.find()) {
-                        if ("password".equals("password")) { // Change to be pulled from GUI
+                        if (Password.equals(RePassword)) { // Change to be pulled from GUI
                             System.exit(0);
                         }
                         else
