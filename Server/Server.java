@@ -32,7 +32,7 @@ public class Server extends Thread {
 	/**
 	 * provide access to the GUI
 	 */
-	ServerG servergui = null;
+	ServerGUI servergui = null;
 	
 	/**
 	 * the port number used for client communication
@@ -42,7 +42,7 @@ public class Server extends Thread {
 	/**
 	 * used for shutting down the server thread
 	 */
-	private boolean running = true;
+	private final boolean running = true;
 	
 	/**
 	 * unique ID for each client connection
@@ -58,7 +58,13 @@ public class Server extends Thread {
 	 * list of active client threads by ID number
 	 * Vector is a "thread safe" ArrayList
 	 */
-	private Vector<ClientHandler> clientconnections;
+	private final Vector<ClientHandler> clientconnections;
+
+	/**
+	 * the user and system databases
+	 */
+	private UserDatabase userDatabase;
+	private Database systemDatabase;
 	
 	public int getconnections ()
 	{
@@ -69,13 +75,34 @@ public class Server extends Thread {
 	 * constructor creates the list of clients and
 	 * starts the server listening on the port
 	 */
-	public Server (ServerG gui)
-	{
+	public Server (ServerGUI gui) {
 		this.servergui = gui;
 		//System.out.println("yay");
 		
 		// -- construct the list of active client threads
 		clientconnections = new Vector<ClientHandler>();
+
+		try {
+			// -- construct the user and system databases
+			this.userDatabase = new UserDatabase(
+					Config.getUserDatabaseServerAddress(),
+					Config.getDatabaseUsername(),
+					Config.getDatabasePassword());
+			this.systemDatabase = new Database(
+					Config.getSystemDatabaseServerAddress(),
+					Config.getDatabaseUsername(),
+					Config.getDatabasePassword());
+		}
+		catch (ConfigNotInitializedException e)
+		{
+			System.out.println("Config not initialized!");
+			System.exit(1);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getStackTrace());
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -103,7 +130,7 @@ public class Server extends Thread {
 					
 					// -- connection accepted, create a peer-to-peer socket
 					//    between the server (thread) and client (route the call to the requested extension)
-					peerconnection(socket);										
+				peerconnection(socket);
 			}
 		}
 		catch (IOException e) {

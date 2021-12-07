@@ -2,6 +2,7 @@ package Server;
 
 // -- Download JavaMail API from here: http://www.oracle.com/technetwork/java/javamail/index.html
 // -- Download JavaBeans Activation Framework from here: http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#jaf-1.1.1-fcs-oth-JPR
+
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -61,7 +62,7 @@ public class SendEmailUsingGMailSMTP {
 			message.setFrom(new InternetAddress(from));
 
 			// -- Set To: header field of the header.
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(to));
 
 			// -- Set Subject: header field
 			message.setSubject("CSC335 Project");
@@ -86,5 +87,6 @@ public class SendEmailUsingGMailSMTP {
 
 
 	}
+
 }
 

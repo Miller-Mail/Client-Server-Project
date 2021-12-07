@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import javax.swing.JButton;
@@ -12,12 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CreateAccount extends JFrame {
+public class CreateAccountGUI extends JFrame {
 
-    private final int WIDTH = 200;
+    private final int WIDTH = 230;
     private final int HEIGHT = 400;
 
-    public CreateAccount() {
+    public CreateAccountGUI() {
         setTitle("Create Account");
 
         // -- size of the frame: width, height
@@ -44,31 +46,30 @@ public class CreateAccount extends JFrame {
     public class FieldPanel extends JPanel {
 
         //private JButton loadButton;
-        private JLabel Us;
-        private JTextField User;
-        private JLabel pas;
-        private JTextField Pass;
-        private JLabel em;
-        private JTextField email;
-        private JLabel repas;
-        private JTextField rePass;
-        public FieldPanel(){
-            setLayout(new FlowLayout(20,20,10));
+        private final JLabel Us;
+        private final JTextField User;
+        private final JLabel pas;
+        private final JTextField Pass;
+        private final JLabel em;
+        private final JTextField email;
+        private final JLabel repas;
+        private final JTextField rePass;
+
+        public FieldPanel() {
+            setLayout(new FlowLayout(20, 20, 10));
 
 
             Us = new JLabel("Username");
             User = new JTextField("", 10);
 
-            em = new JLabel ("Email");
-            email = new JTextField("",10);
+            em = new JLabel("Email");
+            email = new JTextField("", 10);
 
 
             pas = new JLabel("Password");
             Pass = new JTextField("", 10);
             repas = new JLabel("Re-enter Password");
             rePass = new JTextField("", 10);
-
-
 
 
             this.add(Us);
@@ -86,8 +87,9 @@ public class CreateAccount extends JFrame {
     }
 
     public class BottomPanel extends JPanel {
-        private JButton Close;
-        private JButton Done;
+        private final JButton Close;
+        private final JButton Done;
+        private LoginGUI L;
 
 
         public BottomPanel() {
@@ -107,22 +109,41 @@ public class CreateAccount extends JFrame {
             // Close Button Action
             Close.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    System.exit(0);
+                    dispose();
+                    L = new LoginGUI();
+
                 }
             });
 
             Done.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                    System.exit(0);
+                    String validEmailFormat = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+                    Pattern emailpattern = Pattern.compile(validEmailFormat);
+
+
+                    Matcher matcher = emailpattern.matcher("email@gamil.com"); // Change to be pulled from GUI
+                    if (matcher.find()) {
+                        if ("password".equals("password")) { // Change to be pulled from GUI
+                            System.exit(0);
+                        }
+                        else
+                        {
+                            System.out.println("Passwords do not match");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("Invalid email address");
+                    }
                 }
             });
 
         }
     }
 
-        public static void main(String[] args) {
-            new CreateAccount();
-        }
+    public static void main(String[] args) {
+        new CreateAccountGUI();
     }
+}
 
 

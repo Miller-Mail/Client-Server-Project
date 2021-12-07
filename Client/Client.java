@@ -1,6 +1,9 @@
 package Client;
 
+import Common.Message;
 import Common.NetworkAccess;
+
+import java.net.ConnectException;
 
 public class Client {
 	
@@ -22,36 +25,33 @@ public class Client {
      Network category, read the IP address directly
      
 	 */
-	
-	/**
-	 * provides a peer-to-peer connection to the server
-	 */
-	private NetworkAccess networkaccess;
-  	
-	public NetworkAccess getNetworkAccess() 
-	{
-		return networkaccess;
-	}
-	
-	/**
-	 * Creates a peer-to-peer connection to the server
-	 * 
-	 * @param ip: the IP address of the server
-	 * @param port: the port on which the server is listening
-	 */
-	public Client (String ip, int port)
-	{
-		networkaccess = new NetworkAccess(ip, port);
-	}
-	
-	
-	/**
-	 * Disconnects the client from the server
-	 */
-	public void disconnect ()
-	{
-    	String text = "disconnect";
-		networkaccess.sendString(text,  false);
-		networkaccess.close();		
-	}
+
+    /**
+     * provides a peer-to-peer connection to the server
+     */
+    private final NetworkAccess networkaccess;
+
+    public NetworkAccess getNetworkAccess() {
+        return networkaccess;
+    }
+
+    /**
+     * Creates a peer-to-peer connection to the server
+     *
+     * @param ip:   the IP address of the server
+     * @param port: the port on which the server is listening
+     */
+    public Client(String ip, int port) throws ConnectException {
+        networkaccess = new NetworkAccess(ip, port);
+    }
+
+
+    /**
+     * Disconnects the client from the server
+     */
+    public void disconnect() {
+        String text = "disconnect";
+        networkaccess.sendMessage(new Message(null, text), false);
+        networkaccess.close();
+    }
 }
