@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class NetworkAccess {
-
     /**
      * socket variable for peer to peer communication
      * this is a peer-to-peer connection, either TCP/IP or UDP
@@ -161,5 +160,4 @@ public class NetworkAccess {
             System.out.println("close: invalid socket");
         }
     }
-
 }
