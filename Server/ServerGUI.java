@@ -10,23 +10,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 //import Server.java;
 
 
-public class ServerG extends JFrame {
+public class ServerGUI extends JFrame {
 
     private final int WIDTH = 680;
     private final int HEIGHT = 450;
-    private final ServerG owner = null;
+    private final ServerGUI owner = null;
 
     private Server server;
     private final BottomPanel low;
     private final FieldPanel con;
 
-    public ServerG() {
+    public ServerGUI() {
         setTitle("Server");
 
         // -- size of the frame: width, height
@@ -197,7 +196,8 @@ public class ServerG extends JFrame {
 
 
     public static void main(String[] args) {
-        new ServerG();
+        Config.initializeConfig("ServerConfiguration.conf");
+        new ServerGUI();
     }
 }
 
