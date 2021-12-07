@@ -11,7 +11,7 @@ public class ClientHandler extends Thread {
     /**
      * provide access to the GUI for displaying messages
      */
-    ServerG servergui = null;
+    ServerGUI servergui = null;
 
     /**
      * provides a peer-to-peer connection to the client
@@ -46,7 +46,7 @@ public class ClientHandler extends Thread {
      * @param socket: the peer-to-peer socket for connection to the client
      * @param server: reference to the server that "has" this ClientHandler
      */
-    public ClientHandler(int id, Socket socket, Server server, ServerG gui) {
+    public ClientHandler(int id, Socket socket, Server server, ServerGUI gui) {
         this.server = server;
         this.servergui = gui;
         this.id = id;
