@@ -8,7 +8,6 @@ import Common.NetworkAccess;
 
 
 public class ClientHandler extends Thread {
-
     /**
      * provide access to the GUI for displaying messages
      */

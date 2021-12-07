@@ -21,6 +21,7 @@ public class ConnectGUI extends JFrame {
     private final int HEIGHT = 250;
     Client client = null;
     DataPanel Data;
+    private boolean Visibility;
 
     public ConnectGUI() {
         setTitle("Client.Connect");
@@ -43,7 +44,12 @@ public class ConnectGUI extends JFrame {
         BottomPanel y = new BottomPanel();
         this.add(y, BorderLayout.SOUTH);
         setVisible(true);
+        Visibility = true;
     }
+    private void SetVis(){
+        setVisible(Visibility);
+    }
+
 
     public class DataPanel extends JPanel {
         private final JLabel I;
@@ -62,7 +68,7 @@ public class ConnectGUI extends JFrame {
 
             Portn = new JLabel("Port Number");
 
-            portnum = new JTextField("", 10);
+            portnum = new JTextField("8000", 10);
 
             Adv = new JButton("Advanced...");
 
@@ -119,6 +125,8 @@ public class ConnectGUI extends JFrame {
                             if (matcher.find()) {
                                 matcher = portpattern.matcher(Data.portnum.getText());
                                 if (matcher.find()) {
+                                    Visibility = false;
+                                    SetVis();
                                     client = new Client(host, port);
                                     Log = new LoginGUI();
                                 }
