@@ -29,7 +29,7 @@ public class Client {
     /**
      * provides a peer-to-peer connection to the server
      */
-    private final NetworkAccess networkaccess;
+    final NetworkAccess networkaccess;
 
     public NetworkAccess getNetworkAccess() {
         return networkaccess;
