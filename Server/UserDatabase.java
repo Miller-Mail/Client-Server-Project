@@ -128,6 +128,17 @@ class UserDatabase extends Database {
         return loggedInUsers;
     }
 
+    //method to get the number of registered accounts
+    protected int getNumRegistered() throws SQLException {
+        int count = 0;
+        rset = this.query("Select username from users;");
+        while(rset.next()){
+            count++;
+        }
+//        System.out.println(count);
+        return count;
+    }
+
     //method to reset a user's lock count
     protected void resetLockCount(User usr) {
 
@@ -153,7 +164,8 @@ class UserDatabase extends Database {
 //            usrDB.getUser("Stojkovic");
 //            usrDB.getUser("Jessica");
 //            System.out.println(usrDB.getNumberOfLoggedIn());
-            System.out.println(usrDB.getWhoLoggedIn());
+//            System.out.println(usrDB.getWhoLoggedIn());
+            usrDB.getNumRegistered();
         } catch (SQLException e) {
             e.printStackTrace();
         }
