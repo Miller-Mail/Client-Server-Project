@@ -1,5 +1,7 @@
 package Client;
 
+import Common.NetworkAccess;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -137,7 +139,7 @@ public class CreateAccountGUI extends JFrame {
                     Matcher matcher = emailpattern.matcher(Email); // Change to be pulled from GUI
                     if (matcher.find()) {
                         if (Password.equals(RePassword)) { // Change to be pulled from GUI
-                            System.exit(0);
+
                         }
                         else
                         {
