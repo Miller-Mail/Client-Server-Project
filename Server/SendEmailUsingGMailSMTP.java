@@ -2,7 +2,6 @@ package Server;
 
 // -- Download JavaMail API from here: http://www.oracle.com/technetwork/java/javamail/index.html
 // -- Download JavaBeans Activation Framework from here: http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#jaf-1.1.1-fcs-oth-JPR
-
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -24,13 +23,21 @@ public class SendEmailUsingGMailSMTP {
 	static private String username = "<<your gmail username>>";
 	static private String password = "<<your gmail password>>";
 
-	public static void sendEmail(String Email, String Message) throws ConfigNotInitializedException {
+	public static void main(String[] args) throws ConfigNotInitializedException {
+		Config.initializeConfig("ServerConfiguration.conf");
+		sendEmail("example@gmail.com", "Team MERJ", """
+				Dear user,
 
-		Scanner kb = new Scanner(System.in);
-		System.out.print("email username: ");
-		username = kb.next();
-		System.out.print("email password: ");
-		password = kb.next();
+				This is a test email to make sure that the email sender for the Client-Server project is working.
+
+				Regards,
+				Team MERJ""");
+	}
+
+	public static void sendEmail(String to, String subject, String _message) throws ConfigNotInitializedException
+	{
+		username = Config.getEmailUsername();
+		password = Config.getEmailPassword();
 
 		// -- set up host properties
 		Properties props = new Properties();
@@ -38,7 +45,6 @@ public class SendEmailUsingGMailSMTP {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
-
 
 		// -- Get the Session object.
 		Session session = Session.getInstance(props,
@@ -49,10 +55,7 @@ public class SendEmailUsingGMailSMTP {
 				});
 
 		// -- Set up the sender's email account information
-		String from = Config.getEmailUsername();
-
-		// -- Set up the recipient's email address
-		String to = "mnazim@callutheran.edu";
+		String from = username;//"TeamMERJ@gmail.com";
 
 		try {
 			// -- Create a default MimeMessage object.
@@ -62,13 +65,13 @@ public class SendEmailUsingGMailSMTP {
 			message.setFrom(new InternetAddress(from));
 
 			// -- Set To: header field of the header.
-			message.setRecipients(javax.mail.Message.RecipientType.TO, InternetAddress.parse(to));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
 			// -- Set Subject: header field
-			message.setSubject("CSC335 Project");
+			message.setSubject(subject);
 
 			// Now set the actual message
-			message.setText(Message);
+			message.setText(_message);
 
 			// -- Send message
 			// -- use either these three lines or...
@@ -84,9 +87,5 @@ public class SendEmailUsingGMailSMTP {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-
-
 	}
-
 }
-
