@@ -116,12 +116,12 @@ class UserDatabase extends Database {
         int numberOfColumns = rsmd.getColumnCount();
         int loggedIn;
         while(rset.next()){
-            System.out.print(rset.getString(1) + " ");
+//            System.out.print(rset.getString(1) + " ");
             loggedIn = Integer.parseInt(rset.getString(1));
             if(loggedIn >= 1){
                 loggedInUsers.add(rset.getString(2));
             }
-            System.out.println(rset.getString(2));
+//            System.out.println(rset.getString(2));
 
 //            System.out.println();
         }

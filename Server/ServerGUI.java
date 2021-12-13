@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 import javax.swing.JButton;
@@ -123,6 +125,26 @@ public class ServerGUI extends JFrame {
                 System.out.println("Number of logged in");
                 int numLoggedIn = server.getNumLoggedIn();
                 addToTextArea( "Number of logged in clients: " + numLoggedIn);
+                requestFocus();
+            }
+
+        });
+        WhoLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Logged in accounts");
+                String result = "Logged in accounts: \n";
+                try {
+                   ArrayList loggedInAccounts =  server.getWhoLoggedIn();
+
+                   for(int i = 0; i< loggedInAccounts.size(); i++){
+//                       addToTextArea(loggedInAccounts.get(i) + "\n");
+                       result += loggedInAccounts.get(i) + "\n";
+                   }
+                   addToTextArea(result);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 requestFocus();
             }
 
