@@ -22,6 +22,9 @@ public class ConnectGUI extends JFrame {
     Client client = null;
     DataPanel Data;
     private boolean Visibility;
+    BottomPanel Bot;
+
+
 
     public ConnectGUI() {
         setTitle("Client.Connect");
@@ -41,10 +44,11 @@ public class ConnectGUI extends JFrame {
         //  x.setLayout(new BoxLayout(x,BoxLayout.Y_AXIS));
         this.add(Data, BorderLayout.CENTER);
 
-        BottomPanel y = new BottomPanel();
-        this.add(y, BorderLayout.SOUTH);
+        Bot = new BottomPanel();
+        this.add(Bot, BorderLayout.SOUTH);
         setVisible(true);
         Visibility = true;
+
     }
     private void SetVis(){
         setVisible(Visibility);
@@ -57,6 +61,7 @@ public class ConnectGUI extends JFrame {
         private final JButton Adv;
         private final JLabel Portn;
         private final JTextField portnum;
+        private boolean t = false;
 
         DataPanel() {
             setLayout(new FlowLayout(1, 1, 1));
@@ -78,6 +83,31 @@ public class ConnectGUI extends JFrame {
             this.add(portnum);
             this.add(Adv);
 
+            PrepareButtons();
+
+
+        }
+        public void PrepareButtons() {
+
+
+            Adv.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (t == false)
+                    {
+                        portnum.setText("8000");
+                    }
+
+
+                    Portn.setVisible(t);
+                    portnum.setVisible(t);
+                   t = !t;
+
+                }
+
+
+
+                });
 
         }
 
@@ -143,6 +173,8 @@ public class ConnectGUI extends JFrame {
                 }
 
             });
+
+
 
 
         }
