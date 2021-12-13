@@ -149,6 +149,21 @@ public class ServerGUI extends JFrame {
             }
 
         });
+        NumReg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Number regestered");
+                int numRegistered = 0;
+                try {
+                    numRegistered = server.getNumRegistered();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                addToTextArea( "Number of registered accounts: " + numRegistered);
+                requestFocus();
+            }
+
+        });
 
         MenBar2.add(WhoLog);
         MenBar2.add(NumLog);

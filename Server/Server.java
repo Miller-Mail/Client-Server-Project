@@ -86,6 +86,10 @@ public class Server extends Thread {
     public ArrayList<String> getWhoLoggedIn() throws SQLException {
 	    return userDatabase.getWhoLoggedIn();
     }
+    //method to get the number of registered accounts
+    public int getNumRegistered() throws SQLException {
+	    return userDatabase.getNumRegistered();
+    }
 	
 	/**
 	 * constructor creates the list of clients and
