@@ -90,6 +90,10 @@ public class Server extends Thread {
     public int getNumRegistered() throws SQLException {
 	    return userDatabase.getNumRegistered();
     }
+    //method to get usernames of the locked out accounts
+    public ArrayList<String> getWhoLockedOut() throws SQLException{
+	    return userDatabase.getWhoLockedOut();
+    }
 	
 	/**
 	 * constructor creates the list of clients and
