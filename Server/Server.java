@@ -3,6 +3,7 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Vector;
 
 /*
@@ -70,6 +71,15 @@ public class Server extends Thread {
 	{
 		return clientconnections.size();
 	}
+	public int getNumLoggedIn(){
+	    int count = 0;
+        try {
+           count = userDatabase.getNumberOfLoggedIn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 	
 	/**
 	 * constructor creates the list of clients and

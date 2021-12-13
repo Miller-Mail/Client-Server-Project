@@ -25,6 +25,7 @@ public class ServerGUI extends JFrame {
     private final BottomPanel low;
     private final FieldPanel con;
 
+
     public ServerGUI() {
         setTitle("Server");
 
@@ -115,6 +116,17 @@ public class ServerGUI extends JFrame {
         JButton NumReg = new JButton("Number Registered");
         JButton WhoLock = new JButton("Who is Locked Out");
 
+        //Action listeners for buttons in MenBar2
+        NumLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Number of logged in");
+                int numLoggedIn = server.getNumLoggedIn();
+                addToTextArea( "Number of logged in clients: " + numLoggedIn);
+                requestFocus();
+            }
+
+        });
 
         MenBar2.add(WhoLog);
         MenBar2.add(NumLog);
@@ -195,8 +207,9 @@ public class ServerGUI extends JFrame {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ConfigNotInitializedException {
         Config.initializeConfig("ServerConfiguration.conf");
+        UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
         new ServerGUI();
     }
 }
