@@ -4,6 +4,7 @@ import Common.User;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 //A class that provides all the interaction methods for the user database
 class UserDatabase extends Database {
@@ -107,6 +108,26 @@ class UserDatabase extends Database {
         return count;
     }
 
+    //method that returns an array of the usernames of the logged in accounts
+    protected ArrayList<String> getWhoLoggedIn() throws SQLException {
+        ArrayList loggedInUsers = new ArrayList();
+        rset = this.query("Select loggedIn, username from users;");
+        ResultSetMetaData rsmd = rset.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+        int loggedIn;
+        while(rset.next()){
+            System.out.print(rset.getString(1) + " ");
+            loggedIn = Integer.parseInt(rset.getString(1));
+            if(loggedIn >= 1){
+                loggedInUsers.add(rset.getString(2));
+            }
+            System.out.println(rset.getString(2));
+
+//            System.out.println();
+        }
+        return loggedInUsers;
+    }
+
     //method to reset a user's lock count
     protected void resetLockCount(User usr) {
 
@@ -131,7 +152,8 @@ class UserDatabase extends Database {
 //            usrDB.updateUser(usr);
 //            usrDB.getUser("Stojkovic");
 //            usrDB.getUser("Jessica");
-            System.out.println(usrDB.getNumberOfLoggedIn());
+//            System.out.println(usrDB.getNumberOfLoggedIn());
+            System.out.println(usrDB.getWhoLoggedIn());
         } catch (SQLException e) {
             e.printStackTrace();
         }
