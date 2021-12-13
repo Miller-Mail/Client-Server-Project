@@ -90,7 +90,7 @@ class UserDatabase extends Database {
         this.update("INSERT INTO `users` (`username`, `password`, `email`, `lockCount`, `loggedIn`) VALUES ('" + usr.getUsername() + "', '" + usr.getPassword() + "', '" + usr.getEmail() + "', '0', '0');");
     }
 
-    //method to return the number of locked out users
+    //method to return the number of logged in clients
     protected int getNumberOfLoggedIn() throws SQLException {
         int count = 0;
         rset = this.query("Select loggedIn from users;");
