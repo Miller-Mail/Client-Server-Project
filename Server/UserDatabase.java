@@ -2,10 +2,8 @@ package Server;
 
 import Common.User;
 
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Locale;
 
 //A class that provides all the interaction methods for the user database
 class UserDatabase extends Database {
@@ -92,16 +90,18 @@ class UserDatabase extends Database {
     }
 
     //method to return the number of locked out users
-    protected int getNumberOfLockedOut() throws SQLException {
+    protected int getNumberOfLoggedIn() throws SQLException {
         int count = 0;
-        rset = this.query("Select lockCount from users;");
+        rset = this.query("Select loggedIn from users;");
         ResultSetMetaData rsmd = rset.getMetaData();
         int numberOfColumns = rsmd.getColumnCount();
         while(rset.next()){
             for(int i =1; i <= numberOfColumns; i++){
-                if(Integer.parseInt(rset.getString(i)) >= 3){
-                    count++;
-                }
+//                System.out.println(rset.getString(i));
+//                if(Integer.parseInt(rset.getString(i)) >= 3){
+//                    count++;
+//                }
+                count += Integer.parseInt(rset.getString(i));
             }
         }
         return count;
@@ -118,20 +118,20 @@ class UserDatabase extends Database {
         UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
 //        usrDB.printResultSet(usrDB.query("SELECT * FROM users;"));
         try {
-            User usr = usrDB.getUser("Jessica");
+//            User usr = usrDB.getUser("Jessica");
 //            User usr = new User("Jessica", "test123", "someEmail@gmail.com");
 //            usrDB.logout(user);
 //            usrDB.addUser(usr);
 //            usrDB.getUser("jstojkovic");
 //            usr.setUsername("Stojkovic");
-            usr.setPassword("123test");
-            usr.setEmail("fakeEmail@gmail.com");
-            usr.setLoggedIn(1);
-            usr.setLockCount(1);
-            usrDB.updateUser(usr);
+//            usr.setPassword("123test");
+//            usr.setEmail("fakeEmail@gmail.com");
+//            usr.setLoggedIn(1);
+//            usr.setLockCount(1);
+//            usrDB.updateUser(usr);
 //            usrDB.getUser("Stojkovic");
-            usrDB.getUser("Jessica");
-            System.out.println(usrDB.getNumberOfLockedOut());
+//            usrDB.getUser("Jessica");
+            System.out.println(usrDB.getNumberOfLoggedIn());
         } catch (SQLException e) {
             e.printStackTrace();
         }

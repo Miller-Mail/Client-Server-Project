@@ -25,13 +25,13 @@ public class SendEmailUsingGMailSMTP {
 
 	public static void main(String[] args) throws ConfigNotInitializedException {
 		Config.initializeConfig("ServerConfiguration.conf");
-		sendEmail("example@gmail.com", "Team MERJ", """
-				Dear user,
-
-				This is a test email to make sure that the email sender for the Client-Server project is working.
-
-				Regards,
-				Team MERJ""");
+//		sendEmail("example@gmail.com", "Team MERJ", """
+//				Dear user,
+//
+//				This is a test email to make sure that the email sender for the Client-Server project is working.
+//
+//				Regards,
+//				Team MERJ""");
 	}
 
 	public static void sendEmail(String to, String subject, String _message) throws ConfigNotInitializedException
