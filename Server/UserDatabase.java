@@ -112,8 +112,8 @@ class UserDatabase extends Database {
     protected ArrayList<String> getWhoLoggedIn() throws SQLException {
         ArrayList loggedInUsers = new ArrayList();
         rset = this.query("Select loggedIn, username from users;");
-        ResultSetMetaData rsmd = rset.getMetaData();
-        int numberOfColumns = rsmd.getColumnCount();
+//        ResultSetMetaData rsmd = rset.getMetaData();
+//        int numberOfColumns = rsmd.getColumnCount();
         int loggedIn;
         while(rset.next()){
 //            System.out.print(rset.getString(1) + " ");
@@ -137,6 +137,27 @@ class UserDatabase extends Database {
         }
 //        System.out.println(count);
         return count;
+    }
+
+    //method that returns an array of the usernames of the locked out accounts
+    protected ArrayList<String> getWhoLockedOut() throws SQLException {
+        ArrayList lockedOutUsers = new ArrayList();
+        rset = this.query("Select lockCount, username from users;");
+        int lockCount = 0;
+        while(rset.next()){
+//            System.out.print(rset.getString(1) + " ");
+            lockCount = Integer.parseInt(rset.getString(1));
+//            System.out.print(lockCount + " ");
+//            System.out.println(rset.getString(2));
+            if(lockCount >= 3){
+                lockedOutUsers.add(rset.getString(2));
+            }
+//            System.out.println(rset.getString(2));
+
+//            System.out.println();
+        }
+//        System.out.println(lockedOutUsers);
+        return lockedOutUsers;
     }
 
     //method to reset a user's lock count
@@ -165,7 +186,8 @@ class UserDatabase extends Database {
 //            usrDB.getUser("Jessica");
 //            System.out.println(usrDB.getNumberOfLoggedIn());
 //            System.out.println(usrDB.getWhoLoggedIn());
-            usrDB.getNumRegistered();
+//            usrDB.getNumRegistered();
+            usrDB.getWhoLockedOut();
         } catch (SQLException e) {
             e.printStackTrace();
         }
