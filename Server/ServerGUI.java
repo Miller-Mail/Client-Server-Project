@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 import javax.swing.JButton;
@@ -24,6 +26,7 @@ public class ServerGUI extends JFrame {
     private Server server;
     private final BottomPanel low;
     private final FieldPanel con;
+
 
     public ServerGUI() {
         setTitle("Server");
@@ -115,6 +118,72 @@ public class ServerGUI extends JFrame {
         JButton NumReg = new JButton("Number Registered");
         JButton WhoLock = new JButton("Who is Locked Out");
 
+        //Action listeners for buttons in MenBar2
+        NumLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Number of logged in");
+                int numLoggedIn = server.getNumLoggedIn();
+                addToTextArea( "Number of logged in clients: " + numLoggedIn);
+                requestFocus();
+            }
+
+        });
+        WhoLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Logged in accounts");
+                String result = "Logged in accounts: \n";
+                try {
+                   ArrayList loggedInAccounts =  server.getWhoLoggedIn();
+
+                   for(int i = 0; i< loggedInAccounts.size(); i++){
+//                       addToTextArea(loggedInAccounts.get(i) + "\n");
+                       result += loggedInAccounts.get(i) + "\n";
+                   }
+                   addToTextArea(result);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                requestFocus();
+            }
+
+        });
+        NumReg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Number regestered");
+                int numRegistered = 0;
+                try {
+                    numRegistered = server.getNumRegistered();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                addToTextArea( "Number of registered accounts: " + numRegistered);
+                requestFocus();
+            }
+
+        });
+        WhoLock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Locked out accounts");
+                String result = "Locked out accounts: \n";
+                try {
+                    ArrayList LockedOutAccounts =  server.getWhoLockedOut();
+
+                    for(int i = 0; i< LockedOutAccounts.size(); i++){
+//                       addToTextArea(loggedInAccounts.get(i) + "\n");
+                        result += LockedOutAccounts.get(i) + "\n";
+                    }
+                    addToTextArea(result);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                requestFocus();
+            }
+
+        });
 
         MenBar2.add(WhoLog);
         MenBar2.add(NumLog);
@@ -195,8 +264,9 @@ public class ServerGUI extends JFrame {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ConfigNotInitializedException {
         Config.initializeConfig("ServerConfiguration.conf");
+        UserDatabase usrDB = new UserDatabase(Config.getUserDatabaseServerAddress(), Config.getDatabaseUsername(), Config.getDatabasePassword());
         new ServerGUI();
     }
 }

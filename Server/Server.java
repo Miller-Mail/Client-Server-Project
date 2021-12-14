@@ -3,6 +3,8 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /*
@@ -70,6 +72,28 @@ public class Server extends Thread {
 	{
 		return clientconnections.size();
 	}
+	//method to get the number of logged in clients
+	public int getNumLoggedIn(){
+	    int count = 0;
+        try {
+           count = userDatabase.getNumberOfLoggedIn();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    //method to get the usernames of the logged in accounts
+    public ArrayList<String> getWhoLoggedIn() throws SQLException {
+	    return userDatabase.getWhoLoggedIn();
+    }
+    //method to get the number of registered accounts
+    public int getNumRegistered() throws SQLException {
+	    return userDatabase.getNumRegistered();
+    }
+    //method to get usernames of the locked out accounts
+    public ArrayList<String> getWhoLockedOut() throws SQLException{
+	    return userDatabase.getWhoLockedOut();
+    }
 	
 	/**
 	 * constructor creates the list of clients and
